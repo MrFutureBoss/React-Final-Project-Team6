@@ -1,0 +1,8 @@
+.sign-up-link{
+    text-decoration: none;
+    color: #5CB85C;
+}
+.sign-up-link:hover{
+    text-decoration: underline;
+    color: #489c48;
+}
