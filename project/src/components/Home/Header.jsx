@@ -9,7 +9,7 @@ const Header = () => {
           </Col>
           <Col xs={6} className="nav-position" >
             <NavLink to='/'>Home</NavLink>
-            <NavLink to='login'>Sign in</NavLink>
+            <NavLink to='/login'>Sign in</NavLink>
             <NavLink to='/register'>Sign up</NavLink>
           </Col>
         </Row>
