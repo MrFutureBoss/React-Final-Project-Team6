@@ -3,6 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 const Header = () => {
+
   const userToken = localStorage.getItem("userToken");
   console.log("Header: "+userToken)
   const clearToken=()=>{
@@ -37,3 +38,4 @@ const Header = () => {
 };
 
 export default Header;
+
