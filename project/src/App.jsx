@@ -2,8 +2,8 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home/Home";
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
+import SignIn from "./components/Login/SignIn";
+import SignUp from "./components/Login/SignUp";
 function App() {
   return (
     <BrowserRouter>
