@@ -1,3 +1,4 @@
+
 // SignUp.jsx
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -6,12 +7,14 @@ import Header from "../Home/Header";
 import axios from 'axios';
 
 const SignUpSchema = Yup.object().shape({
+
   username: Yup.string().required('Username is required'),
   email: Yup.string().email('Invalid email').required('Email is required'),
   password: Yup.string().required('Password is required'),
 });
 
 const SignUp = () => {
+
   const handleSignUp = async (values, { setSubmitting }) => {
     try {
       const response = await axios.post('https://api.realworld.io/api/users', {
