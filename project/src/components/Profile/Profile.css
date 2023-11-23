@@ -1,0 +1,42 @@
+.profile{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.profile-container{
+  height: 250px;
+}
+
+.profile img{
+    border-radius: 50%;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.profile h2{
+    margin: 10px auto;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.profile p{
+    color: #AAAAAA;
+    margin: 0 auto;
+    font-weight: lighter;
+}
+
+.profile-btn a{
+    text-decoration: none;
+    float: right;
+    font-size: 0.875rem;
+    border-radius: 0.2rem;
+    color: #999;
+    border: 1px solid #999;
+    padding: 5px 20px;
+}
+
+.profile-btn a:hover{
+    background-color: #c1b9b9;
+}
