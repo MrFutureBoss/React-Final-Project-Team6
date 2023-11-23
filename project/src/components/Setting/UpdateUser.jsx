@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import Header from "../Home/Header";
+import "./Setting.css"
 
 const updateUserSchema = Yup.object().shape({
   username: Yup.string().required("Username is required"),
@@ -64,8 +65,7 @@ const UpdateUser = () => {
       });
   };
 
-  
-  const clearToken=()=>{
+  const clearToken = () => {
     localStorage.removeItem("userImg");
     localStorage.removeItem("userToken");
     localStorage.removeItem("userBio");
@@ -74,14 +74,13 @@ const UpdateUser = () => {
     localStorage.removeItem("currentPass");
     window.location.reload();
     window.location.href = "/";
-    
-  }
+  };
 
   return (
     <>
       <Header />
       <div className="container d-flex align-items-center justify-content-center">
-        <div className="card p-4" style={{ width: "60%" }}>
+        <div className="p-4" style={{ width: "60%" }}>
           <h2 className="mb-2 text-center">Update User</h2>
           <Formik
             initialValues={initialValues}
@@ -89,6 +88,54 @@ const UpdateUser = () => {
             onSubmit={handleUpdateUser}
           >
             <Form>
+            <div className="mb-3">
+                <label htmlFor="image" className="form-label">
+                  Image URL:
+                </label>
+                <Field
+                  type="text"
+                  className="form-control col-12"
+                  id="image"
+                  name="image"
+                />
+                <ErrorMessage
+                  name="image"
+                  component="div"
+                  className="text-danger"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="username" className="form-label">
+                  Username:
+                </label>
+                <Field
+                  type="text"
+                  className="form-control col-12"
+                  id="username"
+                  name="username"
+                />
+                <ErrorMessage
+                  name="username"
+                  component="div"
+                  className="text-danger"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="bio" className="form-label">
+                  Bio:
+                </label>
+                <Field
+                  type="text"
+                  className="form-control col-10"
+                  id="bio"
+                  name="bio"
+                />
+                <ErrorMessage
+                  name="bio"
+                  component="div"
+                  className="text-danger"
+                />
+              </div>
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">
                   Email:
@@ -121,60 +168,18 @@ const UpdateUser = () => {
                   className="text-danger"
                 />
               </div>
-              <div className="mb-3">
-                <label htmlFor="username" className="form-label">
-                  Username:
-                </label>
-                <Field
-                  type="text"
-                  className="form-control col-12"
-                  id="username"
-                  name="username"
-                />
-                <ErrorMessage
-                  name="username"
-                  component="div"
-                  className="text-danger"
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="bio" className="form-label">
-                  Bio:
-                </label>
-                <Field
-                  type="text"
-                  className="form-control col-12"
-                  id="bio"
-                  name="bio"
-                />
-                <ErrorMessage
-                  name="bio"
-                  component="div"
-                  className="text-danger"
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="image" className="form-label">
-                  Image URL:
-                </label>
-                <Field
-                  type="text"
-                  className="form-control col-12"
-                  id="image"
-                  name="image"
-                />
-                <ErrorMessage
-                  name="image"
-                  component="div"
-                  className="text-danger"
-                />
-              </div>
-              <button type="submit" className="btn btn-primary float-end">
+              <button type="submit" className="btn btn-lg btn-primary float-end">
                 Update User
               </button>
             </Form>
           </Formik>
-          <button onClick={clearToken}>Log out</button>
+          <br></br>
+          <hr></hr>
+          <button
+            onClick={clearToken}
+            className="btn btn-outline-danger"
+          >
+            Or click here to logout.</button>
         </div>
       </div>
     </>
