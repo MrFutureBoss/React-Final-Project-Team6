@@ -1,10 +1,10 @@
-
-// SignUp.jsx
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Header from "../Home/Header";
 import axios from 'axios';
+import "./Login.css";
+import { Link } from "react-router-dom";
 
 const SignUpSchema = Yup.object().shape({
 
@@ -34,7 +34,9 @@ const SignUp = () => {
       <div className="container d-flex align-items-center justify-content-center">
         <div className="card p-4" style={{ width: '60%' }}>
           <h2 className="mb-4 text-center">Sign Up</h2>
-
+          <Link to="/register" className="mb-4 text-center sign-up-link">
+            Need an account?
+          </Link>
           <Formik
             initialValues={{ username: '', email: '', password: '' }}
             validationSchema={SignUpSchema}
