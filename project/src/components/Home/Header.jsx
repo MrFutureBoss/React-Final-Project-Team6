@@ -1,6 +1,8 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 
 const Header = () => {
 
@@ -22,8 +24,8 @@ const Header = () => {
             </>
           ) : (
             <>
-              <NavLink to="/editor">New Article</NavLink>
-              <NavLink to="/settings">Settings</NavLink>
+              <NavLink to="/editor"><i class="bi bi-pencil-square"></i>New Article</NavLink>
+              <NavLink to="/settings"><i class="bi bi-gear-fill"></i>Settings</NavLink>
               <NavLink to="/">...</NavLink>
             </>
           )}
