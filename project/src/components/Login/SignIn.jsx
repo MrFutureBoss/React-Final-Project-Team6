@@ -63,17 +63,17 @@ const SignIn = () => {
         setSubmitting(false);
       });
   };
-const token = localStorage.getItem("userToken");
-console.log("login"+token)
+  const token = localStorage.getItem("userToken");
+  console.log("login" + token);
 
-const handleKeyDown = (e) => {
-  if (e.keyCode === 13) {
-    handleSignIn();
-  }
-};
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      handleSignIn();
+    }
+  };
   return (
     <>
-      <Header/>
+      <Header />
       <div className="container d-flex align-items-center justify-content-center">
         <div className="card p-4" style={{ width: "60%" }}>
           <h2 className="mb-2 text-center">Sign In</h2>
