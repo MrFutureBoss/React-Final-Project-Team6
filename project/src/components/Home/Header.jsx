@@ -44,7 +44,6 @@ const Header = () => {
               </NavLink>
             </>
           )}
-          <button onClick={clearToken}>Log out</button>
         </Col>
       </Row>
     </Container>
