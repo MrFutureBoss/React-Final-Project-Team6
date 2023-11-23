@@ -6,10 +6,7 @@ const Header = () => {
 
   const userToken = localStorage.getItem("userToken");
   console.log("Header: "+userToken)
-  const clearToken=()=>{
-    localStorage.removeItem("userToken");
-    window.location.reload();
-  }
+  
   return (
     <Container fluid className="header-container">
       <Row className="header-position">
@@ -30,7 +27,6 @@ const Header = () => {
               <NavLink to="/">...</NavLink>
             </>
           )}
-          <button onClick={clearToken}>Log out</button>
         </Col>
       </Row>
     </Container>
