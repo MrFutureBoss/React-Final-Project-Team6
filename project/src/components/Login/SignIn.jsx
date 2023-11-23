@@ -35,8 +35,18 @@ const SignIn = () => {
     axios
       .request(config)
       .then((response) => {
+        const username = response.data.user.username;
+        localStorage.setItem("userName", username);
         const token = response.data.user.token;
         localStorage.setItem("userToken", token);
+        const image = response.data.user.image;
+        localStorage.setItem("userImg", image);
+        const bio = response.data.user.bio;
+        localStorage.setItem("userBio", bio);
+        const email = response.data.user.email;
+        localStorage.setItem("userEmail", email);
+        const password = values.password;
+        localStorage.setItem("currentPass", password);
         navigate("/");
       })
       .catch((error) => {
