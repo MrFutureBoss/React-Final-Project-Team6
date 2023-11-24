@@ -3,18 +3,15 @@ import "./Home.css";
 import Header from "./Header";
 import Banner from "./Banner";
 import Footer from "./Footer";
+import Feed from "./Feed";
 
 const Home = () => {
   return (
     <>
-        <Header/>
-        <Banner/>
-      <Row>
-        <Col xs={12}>
-          
-        </Col>
-      </Row>
-      <Footer/>
+      <Header />
+      <Banner />
+      <Feed />
+      <Footer />
     </>
   );
 };
