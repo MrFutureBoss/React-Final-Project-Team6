@@ -3,13 +3,10 @@
   text-align: center;
 }
 
-<<<<<<< Updated upstream
-.header-position{
-=======
+
 .header-position {
->>>>>>> Stashed changes
+  position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   height: 100%;
 }
@@ -18,6 +15,7 @@
   display: flex;
   justify-content: space-between;
 }
+
 .logo {
   font-family: "Titillium Web", sans-serif;
   font-size: 1.5rem;
@@ -42,19 +40,35 @@
   text-decoration: none;
   color: #b0aaaa;
 }
-<<<<<<< Updated upstream
+
+.nav-position a:hover{
+  color: #2d2d2d;
+}
+
 .nav-position a.active{
   color: #000;
 }
-.banner-container{
-=======
+.nav-profile{
+display: flex;
+height: 100%;
+align-items: center;
+gap: 0.25rem;
+}
+.nav-profile img{
+  border-radius: 50%;
+  height: 26px;
+}
+.nav-profile p{
+  border-radius: 50%;
+  margin-bottom: 0;
+
+}
 
 .nav-position a.active {
   color: #000;
 }
 
 .banner-container {
->>>>>>> Stashed changes
   background-color: #5cb85c;
   height: 200px;
 }
