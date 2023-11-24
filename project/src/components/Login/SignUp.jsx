@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Header from "../Home/Header";
 import axios from 'axios';
-import "./Login.css";
+import "../Login/Login.css";
 import { Link } from "react-router-dom";
 
 const SignUpSchema = Yup.object().shape({
@@ -79,7 +79,7 @@ const SignUp = () => {
                 />
                 <ErrorMessage name="password" component="div" className="text-danger" />
               </div>
-              <button type="submit" className="btn btn-primary float-end">
+              <button type="submit" className="float-end custom-button">
                 Sign Up
               </button>
             </Form>

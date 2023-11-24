@@ -81,7 +81,7 @@ const UpdateUser = () => {
       <Header />
       <div className="container d-flex align-items-center justify-content-center">
         <div className="p-4" style={{ width: "60%" }}>
-          <h2 className="mb-2 text-center">Update User</h2>
+          <h2 className="mb-2 text-center">Your Settings</h2>
           <Formik
             initialValues={initialValues}
             validationSchema={updateUserSchema}

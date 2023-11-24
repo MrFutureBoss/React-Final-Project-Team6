@@ -9,15 +9,7 @@ const Header = () => {
   const userImg = localStorage.getItem("userImg");
   const userName = localStorage.getItem("userName");
   console.log("Header: " + userToken);
-  const clearToken = () => {
-    localStorage.removeItem("userImg");
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("userBio");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("userEmail");
-    localStorage.removeItem("currentPass");
-    window.location.reload();
-  };
+ 
   return (
     <Container fluid className="header-container">
       <Row className="header-position">
