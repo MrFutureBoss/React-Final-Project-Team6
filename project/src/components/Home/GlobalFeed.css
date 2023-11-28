@@ -1,0 +1,97 @@
+/* GlobalFeed.css (create a new CSS file or use your existing CSS file) */
+
+.article-preview {
+    margin-bottom: 20px;
+  }
+  
+  .article-meta img {
+    display: inline-block;
+    vertical-align: middle;
+    height: 32px;
+    width: 32px;
+    border-radius: 30px;
+  }
+  
+  .article-meta .info {
+    display: inline-block;
+    margin-left: 10px;
+  }
+  
+  .article-meta .author {
+    text-decoration: none;
+    color: #333; /* Adjust the color as needed */
+  }
+  
+  .article-meta .date {
+    color: #777; /* Adjust the color as needed */
+  }
+  
+  .preview-link {
+    text-decoration: none;
+    color: #333; /* Adjust the color as needed */
+  }
+  
+  .preview-link h3 {
+    margin-top: 10px;
+  }
+  
+  .preview-link p {
+    color: #555; /* Adjust the color as needed */
+  }
+  .article-preview {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1.5rem 0;
+  }
+  .article-meta .info .author {
+    display: block;
+    font-weight: 500 !important;
+  }
+  
+  /* Additional styles */
+  a, area, button, [role="button"], input, label, select, summary, textarea {
+    touch-action: manipulation;
+  }
+  
+  a {
+    color: #5CB85C;
+    text-decoration: none;
+  }
+  
+  a {
+    background-color: transparent;
+  }
+  /* GlobalFeed.css (add to the existing styles) */
+
+.article-preview .preview-link h1 {
+    font-weight: 600 !important;
+    font-size: 1.5rem !important;
+    margin-bottom: 3px;
+  }
+  
+  /* Add the rest of your existing styles */
+  h1, .h1 {
+    font-size: 2.5rem;
+  }
+  
+  h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-bottom: 0.5rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: .5rem;
+  }
+  
+  h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+  }
+  
+  /* Add the rest of your existing styles */
+  
+  
+  
