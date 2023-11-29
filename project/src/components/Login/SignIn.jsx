@@ -35,8 +35,18 @@ const SignIn = () => {
     axios
       .request(config)
       .then((response) => {
+        const username = response.data.user.username;
+        localStorage.setItem("userName", username);
         const token = response.data.user.token;
         localStorage.setItem("userToken", token);
+        const image = response.data.user.image;
+        localStorage.setItem("userImg", image);
+        const bio = response.data.user.bio;
+        localStorage.setItem("userBio", bio);
+        const email = response.data.user.email;
+        localStorage.setItem("userEmail", email);
+        const password = values.password;
+        localStorage.setItem("currentPass", password);
         navigate("/");
       })
       .catch((error) => {
@@ -53,17 +63,17 @@ const SignIn = () => {
         setSubmitting(false);
       });
   };
-const token = localStorage.getItem("userToken");
-console.log("login"+token)
+  const token = localStorage.getItem("userToken");
+  console.log("login" + token);
 
-const handleKeyDown = (e) => {
-  if (e.keyCode === 13) {
-    handleSignIn();
-  }
-};
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      handleSignIn();
+    }
+  };
   return (
     <>
-      <Header/>
+      <Header />
       <div className="container d-flex align-items-center justify-content-center">
         <div className="card p-4" style={{ width: "60%" }}>
           <h2 className="mb-2 text-center">Sign In</h2>
