@@ -119,7 +119,7 @@ const SignIn = () => {
                   className="text-danger"
                 />
               </div>
-              <button type="submit" className="btn btn-primary float-end">
+              <button type="submit" className="float-end custom-button">
                 Sign In
               </button>
             </Form>

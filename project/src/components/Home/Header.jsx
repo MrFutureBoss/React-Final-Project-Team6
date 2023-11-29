@@ -37,7 +37,6 @@ const Header = () => {
   }, [userToken]);
 
 
-
   return (
     <Container fluid className="header-container">
       <Row className="header-position">

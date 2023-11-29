@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import Header from "../Home/Header";
-import "./Setting.css"
+import "../Setting/Setting.css"
 
 const updateUserSchema = Yup.object().shape({
   username: Yup.string().required("Username is required"),
@@ -81,7 +81,7 @@ const UpdateUser = () => {
       <Header />
       <div className="container d-flex align-items-center justify-content-center">
         <div className="p-4" style={{ width: "60%" }}>
-          <h2 className="mb-2 text-center">Update User</h2>
+          <h2 className="mb-2 text-center">Your Settings</h2>
           <Formik
             initialValues={initialValues}
             validationSchema={updateUserSchema}
@@ -121,21 +121,23 @@ const UpdateUser = () => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="bio" className="form-label">
-                  Bio:
-                </label>
-                <Field
-                  type="text"
-                  className="form-control col-10"
-                  id="bio"
-                  name="bio"
-                />
-                <ErrorMessage
-                  name="bio"
-                  component="div"
-                  className="text-danger"
-                />
-              </div>
+  <label htmlFor="bio" className="form-label">
+    Bio:
+  </label>
+  <Field
+    as="textarea"
+    className="form-control col-10"
+    id="bio"
+    name="bio"
+    rows="4" 
+  />
+  <ErrorMessage
+    name="bio"
+    component="div"
+    className="text-danger"
+  />
+</div>
+
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">
                   Email:
