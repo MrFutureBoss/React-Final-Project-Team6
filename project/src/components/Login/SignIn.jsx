@@ -52,8 +52,8 @@ const SignIn = () => {
       .catch((error) => {
         if (error.response) {
           setErrors({
-            email: "Invalid email or password",
-            password: "Invalid email or password",
+            email: "Invalid email",
+            password: "Invalid password",
           });
         } else {
           console.error("An unexpected error occurred:", error.message);
@@ -64,7 +64,7 @@ const SignIn = () => {
       });
   };
   const token = localStorage.getItem("userToken");
-  console.log("login" + token);
+  console.log("login token:" + token);
 
   const handleKeyDown = (e) => {
     if (e.keyCode === 13) {
