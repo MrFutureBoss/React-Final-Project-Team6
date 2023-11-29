@@ -36,7 +36,10 @@ const Header = () => {
     fetchData();
   }, [userToken]);
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
   return (
     <Container fluid className="header-container">
       <Row className="header-position">
