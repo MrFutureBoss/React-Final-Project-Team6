@@ -3,7 +3,11 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import Header from "../Home/Header";
-import "../Setting/Setting.css"
+import "../Setting/Setting.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 
 const updateUserSchema = Yup.object().shape({
   username: Yup.string().required("Username is required"),
@@ -20,6 +24,18 @@ const UpdateUser = () => {
   const storedImage = localStorage.getItem("userImg");
   const storedEmail = localStorage.getItem("userEmail");
   const storedPassword = localStorage.getItem("userPassword");
+  const navigate = useNavigate();
+
+  const clearToken = () => {
+    localStorage.removeItem("userImg");
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("userBio");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("currentPass");
+    window.location.reload();
+    window.location.href = "/";
+  };
 
   const initialValues = {
     username: storedUsername || "",
@@ -54,26 +70,19 @@ const UpdateUser = () => {
     axios
       .request(config)
       .then((response) => {
-        console.log("User updated successfully:", response.data.user);
+        console.log('User updated successfully:', response.data.user);
+
+        toast.success('User updated successfully');
+
+        navigate('/userprofile');
       })
       .catch((error) => {
-        console.error("An unexpected error occurred:", error.message);
-        setErrors({ username: "Failed to update user" });
+        console.error('Error response:', error.response);
+        setErrors({ username: 'Failed to update user' });
       })
       .finally(() => {
         setSubmitting(false);
       });
-  };
-
-  const clearToken = () => {
-    localStorage.removeItem("userImg");
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("userBio");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("userEmail");
-    localStorage.removeItem("currentPass");
-    window.location.reload();
-    window.location.href = "/";
   };
 
   return (
@@ -88,7 +97,7 @@ const UpdateUser = () => {
             onSubmit={handleUpdateUser}
           >
             <Form>
-            <div className="mb-3">
+              <div className="mb-3">
                 <label htmlFor="image" className="form-label">
                   Image URL:
                 </label>
@@ -121,22 +130,22 @@ const UpdateUser = () => {
                 />
               </div>
               <div className="mb-3">
-  <label htmlFor="bio" className="form-label">
-    Bio:
-  </label>
-  <Field
-    as="textarea"
-    className="form-control col-10"
-    id="bio"
-    name="bio"
-    rows="4" 
-  />
-  <ErrorMessage
-    name="bio"
-    component="div"
-    className="text-danger"
-  />
-</div>
+                <label htmlFor="bio" className="form-label">
+                  Bio:
+                </label>
+                <Field
+                  as="textarea"
+                  className="form-control col-10"
+                  id="bio"
+                  name="bio"
+                  rows="4"
+                />
+                <ErrorMessage
+                  name="bio"
+                  component="div"
+                  className="text-danger"
+                />
+              </div>
 
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">
@@ -163,6 +172,7 @@ const UpdateUser = () => {
                   className="form-control col-12"
                   id="password"
                   name="password"
+                  placeholder="New Password"
                 />
                 <ErrorMessage
                   name="password"
@@ -170,20 +180,18 @@ const UpdateUser = () => {
                   className="text-danger"
                 />
               </div>
-              <button type="submit" className="btn btn-lg btn-primary float-end">
+              <button type="submit" className="float-end btn-update">
                 Update User
               </button>
             </Form>
           </Formik>
-          <br></br>
-          <hr></hr>
-          <button
-            onClick={clearToken}
-            className="btn btn-outline-danger"
-          >
-            Or click here to logout.</button>
+          <hr style={{ margin: "5rem 0 2rem 0" }} />
+          <button onClick={clearToken} className="btn-logout">
+            Or click here to logout.
+          </button>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };

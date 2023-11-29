@@ -63,8 +63,6 @@ const SignIn = () => {
         setSubmitting(false);
       });
   };
-  const token = localStorage.getItem("userToken");
-  console.log("login" + token);
 
   const handleKeyDown = (e) => {
     if (e.keyCode === 13) {

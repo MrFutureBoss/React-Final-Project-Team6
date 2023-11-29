@@ -25,7 +25,7 @@ const UserProfile = () => {
             <Row className="profile-btn">
               <Col xs={12}>
                 <Link to='/settings'>
-                  <i class="bi bi-gear-fill"></i> Edit Profile Settings
+                  <i className="bi bi-gear-fill"></i> Edit Profile Settings
                 </Link>
               </Col>
             </Row>

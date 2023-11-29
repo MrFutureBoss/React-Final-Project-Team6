@@ -8,7 +8,6 @@ const Header = () => {
   const userToken = localStorage.getItem("userToken");
   const userImg = localStorage.getItem("userImg");
   const userName = localStorage.getItem("userName");
-  console.log("Header: " + userToken);
  
   return (
     <Container fluid className="header-container">
@@ -26,10 +25,10 @@ const Header = () => {
           ) : (
             <>
               <NavLink to="/editor">
-                <i class="bi bi-pencil-square"></i> New Article
+                <i className="bi bi-pencil-square"></i> New Article
               </NavLink>
               <NavLink to="/settings">
-                <i class="bi bi-gear-fill"></i> Settings
+                <i className="bi bi-gear-fill"></i> Settings
               </NavLink>
               <NavLink to={`/@${userName}`} className="nav-profile">
                 <img src={userImg} className="nav-profileimg" alt={userName} />
