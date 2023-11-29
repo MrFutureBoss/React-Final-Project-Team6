@@ -40,14 +40,10 @@ const NewArticle = () => {
     fetchData();
   }, [userToken]);
 
-<<<<<<< Updated upstream
   const handleSubmit = (e) => {
 
-    
   };
-=======
-  const handleSubmit = (e) => {};
->>>>>>> Stashed changes
+
 
   return (
     <>
