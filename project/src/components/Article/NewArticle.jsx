@@ -42,8 +42,8 @@ const NewArticle = () => {
 
   const handleSubmit = (e) => {
 
-    
   };
+
 
   return (
     <>

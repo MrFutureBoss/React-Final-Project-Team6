@@ -5,37 +5,38 @@ import axios from "axios";
 
 const Header = () => {
   const userToken = localStorage.getItem("userToken");
-  const [img, setImg] = useState("");
-  const [username, setUserName] = useState("");
+  const username = localStorage.getItem("userName");
+  const img = localStorage.getItem("userImg");
+  // const [img, setImg] = useState("");
+  // const [username, setUserName] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let config = {
-          method: "get",
-          maxBodyLength: Infinity,
-          url: "https://api.realworld.io/api/user",
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       let config = {
+  //         method: "get",
+  //         maxBodyLength: Infinity,
+  //         url: "https://api.realworld.io/api/user",
+  //         headers: {
+  //           Authorization: `Bearer ${userToken}`,
+  //         },
+  //       };
 
-        const response = await axios.request(config);
-        setUserName(response.data.user.username);
-        setImg(response.data.user.image);
-      } catch (error) {
-        if (error.response.status === 401 && userToken==null) {
-          console.clear();  //Turn off unauthorization
-          console.log("Need login")
-        } else {
-          console.log(error); // Handle other errors
-        }
-      }
-    };
+  //       const response = await axios.request(config);
+  //       setUserName(response.data.user.username);
+  //       setImg(response.data.user.image);
+  //     } catch (error) {
+  //       if (error.response.status === 401 && userToken==null) {
+  //         console.clear();  //Turn off unauthorization
+  //         console.log("Need login")
+  //       } else {
+  //         console.log(error); // Handle other errors
+  //       }
+  //     }
+  //   };
 
-    fetchData();
-  }, [userToken]);
-
+  //   fetchData();
+  // }, [userToken]);
 
   return (
     <Container fluid className="header-container">
