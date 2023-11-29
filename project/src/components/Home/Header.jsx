@@ -1,21 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
-import "bootstrap-icons/font/bootstrap-icons.css";
-
+import { NavLink} from "react-router-dom";
+import axios from "axios";
 
 const Header = () => {
   const userToken = localStorage.getItem("userToken");
-  const userImg = localStorage.getItem("userImg");
-  const userName = localStorage.getItem("userName");
- 
+  const [img, setImg] = useState("");
+  const [username, setUserName] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let config = {
+          method: "get",
+          maxBodyLength: Infinity,
+          url: "https://api.realworld.io/api/user",
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        };
+
+        const response = await axios.request(config);
+        setUserName(response.data.user.username);
+        setImg(response.data.user.image);
+      } catch (error) {
+        if (error.response.status === 401 && userToken==null) {
+          console.clear();  //Turn off unauthorization
+          console.log("Need login")
+        } else {
+          console.log(error); // Handle other errors
+        }
+      }
+    };
+
+    fetchData();
+  }, [userToken]);
+
+
   return (
     <Container fluid className="header-container">
       <Row className="header-position">
-        <Col xs={6} className="d-flex logo">
+        <Col xs={5} lg={5} className="d-flex logo">
           conduit
         </Col>
-        <Col xs={6} className="nav-position">
+        <Col xs={1} lg={2}></Col>
+        <Col xs={6} lg={5} className="nav-position">
           <NavLink to="/">Home</NavLink>
           {userToken == null ? (
             <>
@@ -30,9 +59,9 @@ const Header = () => {
               <NavLink to="/settings">
                 <i className="bi bi-gear-fill"></i> Settings
               </NavLink>
-              <NavLink to={`/@${userName}`} className="nav-profile">
-                <img src={userImg} className="nav-profileimg" alt={userName} />
-                <p>{userName}</p>
+              <NavLink to={`/@${username}`} className="nav-profile">
+                <img src={img} className="nav-profileimg" alt={username} />
+                <p>{username}</p>
               </NavLink>
             </>
           )}

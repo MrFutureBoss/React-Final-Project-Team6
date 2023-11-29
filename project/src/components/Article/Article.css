@@ -1,0 +1,70 @@
+.new-article-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.first-input {
+  width: 100%;
+  padding: 12px 24px;
+  border: 1px solid rgb(236, 230, 230);
+  border-radius: 5px;
+  margin: 10px 0;
+}
+.first-input::placeholder {
+  font-size: 20px;
+  color: rgb(193, 189, 189);
+}
+
+.second-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid rgb(236, 230, 230);
+  border-radius: 5px;
+  margin: 10px 0;
+}
+.second-input::placeholder {
+  font-size: 16px;
+  color: rgb(193, 189, 189);
+}
+textarea {
+    width: 100%;
+  padding: 8px;
+  height: 180px;
+  border: 1px solid rgb(236, 230, 230);
+  border-radius: 5px;
+}
+
+.third-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid rgb(236, 230, 230);
+  border-radius: 5px;
+  margin: 10px 0;
+}
+.third-input::placeholder {
+  font-size: 16px;
+  color: rgb(193, 189, 189);
+}
+
+input:focus{
+  border-color: rgb(72, 198, 226);
+  outline: none;
+}
+textarea:focus{
+  border-color: rgb(72, 198, 226);
+  outline: none;
+}
+.btn-publish{
+  background-color: rgb(89, 193, 89);
+  color: #fff;
+  border-style: none;
+  font-size: 20pxl;
+  border-radius: 5px;
+  padding: 10px 20px;
+  float: right;
+}
+button:hover{
+  background-color: rgb(41, 128, 41);
+}

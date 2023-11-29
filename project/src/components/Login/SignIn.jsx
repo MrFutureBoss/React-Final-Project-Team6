@@ -52,8 +52,8 @@ const SignIn = () => {
       .catch((error) => {
         if (error.response) {
           setErrors({
-            email: "Invalid email or password",
-            password: "Invalid email or password",
+            email: "Invalid email",
+            password: "Invalid password",
           });
         } else {
           console.error("An unexpected error occurred:", error.message);

@@ -1,4 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
+import './Home.css'
 
 const Footer = () => {
   return (
@@ -13,6 +14,7 @@ const Footer = () => {
           </a>
         </Col>
       </Row>
+        
     </Container>
   );
 };
