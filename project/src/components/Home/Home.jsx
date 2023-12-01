@@ -10,7 +10,6 @@ const Home = () => {
       <Header />
       <Banner />
       {/* <Feed /> */}
-      <Footer />
     </>
   );
 };

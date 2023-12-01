@@ -71,10 +71,8 @@ const UpdateUser = () => {
       .request(config)
       .then((response) => {
         console.log('User updated successfully:', response.data.user);
-
         toast.success('User updated successfully');
-
-        navigate('/userprofile');
+        navigate(`/@${storedUsername}`);
       })
       .catch((error) => {
         console.error('Error response:', error.response);
@@ -88,7 +86,7 @@ const UpdateUser = () => {
   return (
     <>
       <Header />
-      <div className="container d-flex align-items-center justify-content-center">
+      <div className="container d-flex align-items-center justify-content-center" style={{marginBottom:"80px"}}>
         <div className="p-4" style={{ width: "60%" }}>
           <h2 className="mb-2 text-center">Your Settings</h2>
           <Formik
