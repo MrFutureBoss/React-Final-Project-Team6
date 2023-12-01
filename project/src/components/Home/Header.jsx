@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { NavLink} from "react-router-dom";
+import { NavLink, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 const Header = () => {
   const userToken = localStorage.getItem("userToken");
   const username = localStorage.getItem("userName");
   const img = localStorage.getItem("userImg");
+  const navigate = useNavigate();
   // const [img, setImg] = useState("");
   // const [username, setUserName] = useState("");
 
@@ -38,10 +39,14 @@ const Header = () => {
   //   fetchData();
   // }, [userToken]);
 
+ const handleClickLogo = () => {
+   navigate("/");
+ };
+
   return (
     <Container fluid className="header-container">
       <Row className="header-position">
-        <Col xs={5} lg={5} className="d-flex logo">
+        <Col xs={5} lg={5} className="d-flex logo" onClick={handleClickLogo}>
           conduit
         </Col>
         <Col xs={1} lg={2}></Col>

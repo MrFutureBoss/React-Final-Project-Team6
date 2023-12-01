@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-const MyArticle = () => {
+export default function FavoriteArticle() {
   const { pusername } = useParams();
   const url = pusername.slice(1);
   const userToken = localStorage.getItem("userToken");
   const [articles, setArticles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 5;
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
         let config = {
           method: "get",
           maxBodyLength: Infinity,
-          url: `https://api.realworld.io/api/articles?author=${url}`,
+          url: `https://api.realworld.io/api/articles?author=${url}&favorited=${url}`,
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
@@ -144,6 +145,4 @@ const MyArticle = () => {
       </Container>
     </>
   );
-};
-
-export default MyArticle;
+}

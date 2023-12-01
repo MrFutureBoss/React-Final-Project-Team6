@@ -6,20 +6,21 @@ import SignUp from "./components/Login/SignUp";
 import UserProfile from "./components/Profile/UserProfile";
 import UpdateUser from "./components/Setting/UpdateUser";
 import NewArticle from "./components/Article/NewArticle";
+import Footer from "./components/Home/Footer";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/login" element={<SignIn />}>
-        </Route>
-        <Route path="/register" element={<SignUp />}>
-        </Route>
-        <Route path="/:pusername" element={<UserProfile/>}></Route>
+        <Route path="/login" element={<SignIn />}></Route>
+        <Route path="/register" element={<SignUp />}></Route>
+        <Route path="/:pusername" element={<UserProfile />}></Route>
+        <Route path="/:pusername/favorites" element={<UserProfile />}></Route>
         <Route path="/settings" element={<UpdateUser />}></Route>
         <Route path="/editor" element={<NewArticle />}></Route>
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 }

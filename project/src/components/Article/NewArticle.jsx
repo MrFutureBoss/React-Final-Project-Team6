@@ -1,8 +1,10 @@
 import { Col, Container, Form, Row } from "react-bootstrap";
 import Header from "../Home/Header";
 import "./Article.css";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const NewArticle = () => {
   const [title, setTitle] = useState("");
@@ -11,38 +13,69 @@ const NewArticle = () => {
   const [taglist, setTagList] = useState("");
   const userToken = localStorage.getItem("userToken");
 
-  const axios = require("axios");
+ 
   let data = JSON.stringify({
     article: {
       title: title,
       description: description,
       body: body,
-      tagList: taglist,
+      tagList: [taglist],
     },
   });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let config = {
-          method: "post",
-          maxBodyLength: Infinity,
-          url: "https://api.realworld.io/api/articles",
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        };
-      } catch (error) {
-        console.log(error); // Handle other errors
-      }
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       let config = {
+  //         method: "post",
+  //         maxBodyLength: Infinity,
+  //         url: "https://api.realworld.io/api/articles",
+  //         headers: {
+  //           Authorization: `Bearer ${userToken}`,
+  //         },
+  //       };
+  //       const response = await axios.request(config);
+  //       console.log(response);
+  //     } catch (error) {
+  //       console.log(error); // Handle other errors
+  //     }
+  //   };
+ 
+  // }, [userToken]);
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const config = {
+      method: "post",
+      url: "https://api.realworld.io/api/articles",
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+        "Content-Type": "application/json",
+      },
+      data: data,
     };
 
-    fetchData();
-  }, [userToken]);
+    const response = await axios.request(config);
+    console.log(response);
 
-  const handleSubmit = (e) => {
+    if (response.status >= 200 && response.status < 300) {
+      toast.success("Add Successful!");
+      setTitle("");
+      setDescription("");
+      setBody("");
+      setTagList("");
+    } else {
+      toast.error("Add Fail!");
+      console.error("Error creating article:", response.error);
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error("Failed Notification!");
+  }
+};
 
-  };
 
 
   return (
@@ -85,12 +118,15 @@ const NewArticle = () => {
                 ></Form.Control>
               </Form.Group>
               <Form.Group className="col-md-12">
-                <button className="btn-publish">Publish Article</button>
+                <button className="btn-publish" type="submit">
+                  Publish Article
+                </button>
               </Form.Group>
             </Form>
           </Col>
         </Row>
       </Container>
+      <ToastContainer />
     </>
   );
 };
