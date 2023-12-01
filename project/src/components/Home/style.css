@@ -1,7 +1,3 @@
-body{
-    overflow-x: hidden;
-}
-
 .linkHeader:hover{
     color: gray !important;
     cursor:pointer;
@@ -181,7 +177,7 @@ nav{
 }
 
 .nav-profile{
-    float:left;
+float:left;
 }
 
 .nav-profile a{
@@ -267,4 +263,3 @@ nav{
 .bi {
     border: none;
 }
-
