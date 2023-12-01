@@ -20,20 +20,21 @@ const SignUp = () => {
       const response = await axios.post("https://api.realworld.io/api/users", {
         user: values,
       });
-      console.log("Signup successful:", response.data);
-
-      toast.success("Signup successful");
+      if (response.status !== 422) {
+        toast.success("Signup successful!");
+      } else {
+        toast.error("Signup failed!");
+      }
     } catch (error) {
-      console.error("Signup failed:", error);
+      console.error(error);
+      console.clear();
 
-      // Check if the error is due to an existing email address
       if (error.response && error.response.data && error.response.data.errors) {
         const emailError = error.response.data.errors.email;
         if (emailError && emailError.includes("has already been taken")) {
           toast.error("Email address is already taken");
         }
       } else {
-        // If it's not an email conflict, show a generic error message
         toast.error("Signup failed. Please try again.");
       }
     } finally {
@@ -46,9 +47,9 @@ const SignUp = () => {
       <Header />
       <div className="container d-flex align-items-center justify-content-center">
         <div className="card p-4" style={{ width: "60%" }}>
-          <h2 className="mb-4 text-center">Sign Up</h2>
+          <h2 className="mb-2 text-center">Sign Up</h2>
           <Link to="/login" className="mb-4 text-center sign-up-link">
-            Need an account?
+            Already have an account
           </Link>
           <Formik
             initialValues={{ username: "", email: "", password: "" }}

@@ -5,6 +5,9 @@ import { Link, useParams } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ArticleActions from "../Article/ArticleActions";
+
+
 
 const UserProfile = () => {
   const { pusername } = useParams();
@@ -59,6 +62,7 @@ const UserProfile = () => {
           </Row>
         </Row>
       </Container>
+      <ArticleActions username={data.username} image={data.image} />
     </>
   );
 };

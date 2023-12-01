@@ -33,7 +33,7 @@ const NewArticle = () => {
           },
         };
       } catch (error) {
-        console.log(error); // Handle other errors
+        console.log(error);
       }
     };
 

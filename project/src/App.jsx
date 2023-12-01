@@ -6,6 +6,7 @@ import SignUp from "./components/Login/SignUp";
 import UserProfile from "./components/Profile/UserProfile";
 import UpdateUser from "./components/Setting/UpdateUser";
 import NewArticle from "./components/Article/NewArticle";
+import ArticleActions from "./components/Article/ArticleActions";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/:pusername" element={<UserProfile/>}></Route>
         <Route path="/settings" element={<UpdateUser />}></Route>
         <Route path="/editor" element={<NewArticle />}></Route>
+        <Route path="/articleactions" element={<ArticleActions/>}></Route>
       </Routes>
     </BrowserRouter>
   );
