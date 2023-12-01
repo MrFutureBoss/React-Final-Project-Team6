@@ -18,12 +18,12 @@ const updateUserSchema = Yup.object().shape({
 });
 
 const UpdateUser = () => {
-  const storedToken = localStorage.getItem("userToken");
-  const storedUsername = localStorage.getItem("userName");
-  const storedBio = localStorage.getItem("userBio");
-  const storedImage = localStorage.getItem("userImg");
-  const storedEmail = localStorage.getItem("userEmail");
-  const storedPassword = localStorage.getItem("userPassword");
+  const getToken = localStorage.getItem("userToken");
+  const getUsername = localStorage.getItem("userName");
+  const getBio = localStorage.getItem("userBio");
+  const getImage = localStorage.getItem("userImg");
+  const getEmail = localStorage.getItem("userEmail");
+  const getPassword = localStorage.getItem("userPassword");
   const navigate = useNavigate();
 
   const clearToken = () => {
@@ -38,11 +38,11 @@ const UpdateUser = () => {
   };
 
   const initialValues = {
-    username: storedUsername || "",
-    bio: storedBio || "",
-    image: storedImage || "",
-    email: storedEmail || "",
-    password: storedPassword || "",
+    username: getUsername || "",
+    bio: getBio || "",
+    image: getImage || "",
+    email: getEmail || "",
+    password: getPassword || "",
   };
 
   const handleUpdateUser = (values, { setSubmitting, setErrors }) => {
@@ -55,26 +55,30 @@ const UpdateUser = () => {
         password: values.password,
       },
     };
-
+  
     const config = {
       method: "put",
       maxBodyLength: Infinity,
       url: "https://api.realworld.io/api/user",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Token ${storedToken}`,
+        Authorization: `Token ${getToken}`,
       },
       data: data,
     };
-
+  
     axios
       .request(config)
       .then((response) => {
         console.log('User updated successfully:', response.data.user);
-
+        localStorage.setItem("userName", response.data.user.username);
+        localStorage.setItem("userBio", response.data.user.bio);
+        localStorage.setItem("userImg", response.data.user.image);
+        localStorage.setItem("userEmail", response.data.user.email);
+        localStorage.setItem("userPassword", values.password);
+  
         toast.success('User updated successfully');
-
-        navigate('/userprofile');
+        navigate(`/@${response.data.user.username}`);
       })
       .catch((error) => {
         console.error('Error response:', error.response);
@@ -84,11 +88,11 @@ const UpdateUser = () => {
         setSubmitting(false);
       });
   };
-
+  
   return (
     <>
       <Header />
-      <div className="container d-flex align-items-center justify-content-center">
+      <div className="container d-flex align-items-center justify-content-center" style={{marginBottom:"80px"}}>
         <div className="p-4" style={{ width: "60%" }}>
           <h2 className="mb-2 text-center">Your Settings</h2>
           <Formik
