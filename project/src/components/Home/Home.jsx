@@ -1,3 +1,4 @@
+
 import { Container, Col, Row } from "react-bootstrap";
 import './style.css';
 import Header from "./Header";
@@ -9,7 +10,6 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-
 
 const Home = () => {
   const [articles, setArticles] = useState([]);

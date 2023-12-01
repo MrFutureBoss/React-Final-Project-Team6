@@ -6,3 +6,17 @@
     text-decoration: underline;
     color: #489c48;
 }
+
+.custom-button {
+    color: #fff;
+    background-color: #5CB85C;
+    border-color: #5CB85C;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.25rem;
+    border: 0;
+    border-radius:5px;
+}
+
+.custom-button:hover{
+    background-color: #468a46;
+}

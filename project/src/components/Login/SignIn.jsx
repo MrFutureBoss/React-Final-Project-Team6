@@ -52,8 +52,8 @@ const SignIn = () => {
       .catch((error) => {
         if (error.response) {
           setErrors({
-            email: "Invalid email or password",
-            password: "Invalid email or password",
+            email: "Invalid email",
+            password: "Invalid password",
           });
         } else {
           console.error("An unexpected error occurred:", error.message);
@@ -63,8 +63,6 @@ const SignIn = () => {
         setSubmitting(false);
       });
   };
-  const token = localStorage.getItem("userToken");
-  console.log("login" + token);
 
   const handleKeyDown = (e) => {
     if (e.keyCode === 13) {
@@ -119,7 +117,7 @@ const SignIn = () => {
                   className="text-danger"
                 />
               </div>
-              <button type="submit" className="btn btn-primary float-end">
+              <button type="submit" className="float-end custom-button">
                 Sign In
               </button>
             </Form>
