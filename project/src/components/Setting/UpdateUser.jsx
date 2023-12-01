@@ -71,10 +71,15 @@ const UpdateUser = () => {
       .request(config)
       .then((response) => {
         console.log('User updated successfully:', response.data.user);
-
+        localStorage.setItem("userName", response.data.user.username);
+        localStorage.setItem("userBio", response.data.user.bio);
+        localStorage.setItem("userImg", response.data.user.image);
+        localStorage.setItem("userEmail", response.data.user.email);
+        localStorage.setItem("userPassword", values.password);
+  
         toast.success('User updated successfully');
+        navigate(`/@${response.data.user.username}`);
 
-        navigate('/userprofile');
       })
       .catch((error) => {
         console.error('Error response:', error.response);

@@ -5,9 +5,9 @@ import { Link, useParams } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 import MyArticle from "./MyArticle";
 import FavoriteArticle from "./FavoriteArticle";
-
 
 const UserProfile = () => {
   const { pusername } = useParams();
