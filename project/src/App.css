@@ -5,8 +5,8 @@
 
 
 .header-position {
-  position: relative;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   height: 100%;
 }
@@ -41,6 +41,7 @@
   color: #b0aaaa;
 }
 
+
 .nav-position a:hover{
   color: #2d2d2d;
 }
@@ -63,7 +64,6 @@ gap: 0.25rem;
   margin-bottom: 0;
 
 }
-
 .nav-position a.active {
   color: #000;
 }
@@ -153,4 +153,3 @@ gap: 0.25rem;
   text-decoration: underline;
   background-color: #73787c;
 }
-
