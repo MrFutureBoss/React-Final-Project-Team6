@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function FavoriteArticle() {
@@ -10,7 +10,7 @@ export default function FavoriteArticle() {
   const [articles, setArticles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 5;
-  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
