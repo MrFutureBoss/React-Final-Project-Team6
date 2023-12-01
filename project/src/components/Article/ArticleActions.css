@@ -1,0 +1,21 @@
+.img-ac{
+    width: 32px;
+    border-radius: 30px;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+}
+
+.art-user{
+    margin-right: 2rem;
+}
+
+.art-user span{
+    margin: 0 0.5rem;
+}
+
+.art-act a{
+    margin: 0 0.5rem;
+}
