@@ -1,8 +1,8 @@
 import { Col, Container, Row } from "react-bootstrap";
 import './Home.css'
-
 const Footer = () => {
   return (
+   
     <Container fluid className="footer-container">
       <Row>
         <Col>
@@ -14,7 +14,6 @@ const Footer = () => {
           </a>
         </Col>
       </Row>
-        
     </Container>
   );
 };

@@ -1,46 +1,52 @@
 import React, { useState, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { NavLink} from "react-router-dom";
+import { NavLink, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 const Header = () => {
   const userToken = localStorage.getItem("userToken");
-  const [img, setImg] = useState("");
-  const [username, setUserName] = useState("");
+  const username = localStorage.getItem("userName");
+  const img = localStorage.getItem("userImg");
+  const navigate = useNavigate();
+  // const [img, setImg] = useState("");
+  // const [username, setUserName] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let config = {
-          method: "get",
-          maxBodyLength: Infinity,
-          url: "https://api.realworld.io/api/user",
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       let config = {
+  //         method: "get",
+  //         maxBodyLength: Infinity,
+  //         url: "https://api.realworld.io/api/user",
+  //         headers: {
+  //           Authorization: `Bearer ${userToken}`,
+  //         },
+  //       };
 
-        const response = await axios.request(config);
-        setUserName(response.data.user.username);
-        setImg(response.data.user.image);
-      } catch (error) {
-        if (error.response.status === 401 && userToken==null) {
-          console.clear();  //Turn off unauthorization
-          console.log("Need login")
-        } else {
-          console.log(error); // Handle other errors
-        }
-      }
-    };
+  //       const response = await axios.request(config);
+  //       setUserName(response.data.user.username);
+  //       setImg(response.data.user.image);
+  //     } catch (error) {
+  //       if (error.response.status === 401 && userToken==null) {
+  //         console.clear();  //Turn off unauthorization
+  //         console.log("Need login")
+  //       } else {
+  //         console.log(error); // Handle other errors
+  //       }
+  //     }
+  //   };
 
-    fetchData();
-  }, [userToken]);
+  //   fetchData();
+  // }, [userToken]);
 
+ const handleClickLogo = () => {
+   navigate("/");
+ };
 
   return (
     <Container fluid className="header-container">
       <Row className="header-position">
-        <Col xs={5} lg={5} className="d-flex logo">
+        <Col xs={5} lg={5} className="d-flex logo" onClick={handleClickLogo}>
           conduit
         </Col>
         <Col xs={1} lg={2}></Col>

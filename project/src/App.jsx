@@ -5,23 +5,26 @@ import SignIn from "./components/Login/SignIn";
 import SignUp from "./components/Login/SignUp";
 import UserProfile from "./components/Profile/UserProfile";
 import UpdateUser from "./components/Setting/UpdateUser";
+import ArticleDetail from "./components/ArticleDetail";
 import NewArticle from "./components/Article/NewArticle";
-import ArticleActions from "./components/Article/ArticleActions";
+import Footer from "./components/Home/Footer";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/login" element={<SignIn />}>
-        </Route>
-        <Route path="/register" element={<SignUp />}>
-        </Route>
-        <Route path="/:pusername" element={<UserProfile/>}></Route>
+        <Route path="/settings" element={<UpdateUser/>}></Route>
+        <Route path="/article/:slug" element={<ArticleDetail/>}/>
+        <Route path="/login" element={<SignIn />}></Route>
+        <Route path="/register" element={<SignUp />}></Route>
+        <Route path="/:pusername" element={<UserProfile />}></Route>
+        <Route path="/:pusername/favorites" element={<UserProfile />}></Route>
         <Route path="/settings" element={<UpdateUser />}></Route>
         <Route path="/editor" element={<NewArticle />}></Route>
         <Route path="/articleactions" element={<ArticleActions/>}></Route>
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 }
