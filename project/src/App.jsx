@@ -22,6 +22,7 @@ function App() {
         <Route path="/:pusername/favorites" element={<UserProfile />}></Route>
         <Route path="/settings" element={<UpdateUser />}></Route>
         <Route path="/editor" element={<NewArticle />}></Route>
+        <Route path="/articleactions" element={<ArticleActions/>}></Route>
       </Routes>
       <Footer/>
     </BrowserRouter>

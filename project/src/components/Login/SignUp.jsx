@@ -29,14 +29,12 @@ const SignUp = () => {
       console.error(error);
       console.clear();
 
-      // Check if the error is due to an existing email address
       if (error.response && error.response.data && error.response.data.errors) {
         const emailError = error.response.data.errors.email;
         if (emailError && emailError.includes("has already been taken")) {
           toast.error("Email address is already taken");
         }
       } else {
-        // If it's not an email conflict, show a generic error message
         toast.error("Signup failed. Please try again.");
       }
     } finally {
