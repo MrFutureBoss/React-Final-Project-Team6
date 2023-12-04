@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Header from "./Home/Header";
 import axios from "axios";
 import './Home/style.css';
+import { Spinner } from "react-bootstrap";
 
 const ArticleDetail = () => {
   const { slug } = useParams();
@@ -173,7 +174,14 @@ const ArticleDetail = () => {
 
 
   if (!article) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <div className="d-flex justify-content-center align-items-center text-center" style={{marginTop:'300px'}}>
+          <Spinner animation="border" role="status"></Spinner>
+          <span>Loading...</span>
+        </div>
+      </>
+    );
   }
 
   const handleFollow = async () => {
