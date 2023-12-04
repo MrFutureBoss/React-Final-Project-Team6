@@ -41,9 +41,7 @@
   color: #b0aaaa;
 }
 
-.nav-position a.active {
-  color: #000;
-}
+
 
 .banner-container {
   background-color: #5cb85c;
@@ -74,27 +72,6 @@
   font-size: 1.5rem;
   font-weight: lighter;
   line-height: 1.5;
-}
-
-.footer-container {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: linear-gradient(#485563, #29323c);
-  text-align: center;
-  padding: 15px;
-  box-shadow: 0 5px 5px 5px rgba(0, 0, 0, 0.4);
-  z-index: 999;
-  font-size: 1.5rem;
-  text-decoration: none;
-}
-
-.footer-container a{
-  text-decoration: none; 
-  color: #fff;
-}
-.footer-container a:hover{
-  text-decoration:underline; 
 }
 
 .sidebar {
@@ -170,14 +147,6 @@ p {
   margin-bottom: 10px;
 }
 
-.footer-container a {
-  text-decoration: none;
-  color: #fff;
-}
-
-.footer-container a:hover {
-  text-decoration: underline;
-}
 
 .sidebar {
   padding: 5px 10px 10px 10px;
@@ -209,4 +178,71 @@ p {
 .tag-default:hover {
   text-decoration: underline;
   background-color: #73787c;
+}
+body {
+  margin-bottom: 80px; /* Adjust the value as needed */
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  border: 1px solid #ddd;
+  background-color: #f8f9fa;
+  color: #007bff;
+  cursor: pointer;
+  padding: 8px 16px;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+}
+body {
+  margin: 0;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(#485563, #29323c);
+  text-align: center;
+  padding: 15px;
+  box-shadow: 0 5px 5px 5px rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  color: #fff;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+
+.row .col-12{
+  margin-bottom: 100px;
+}
+.a .nav-link.active{
+  background: #fff !important;
+  border-bottom: 2px solid #5CB85C !important;
+  color: #5CB85C !important;
+  
+}
+.home-page .sidebar {
+  padding: 5px 10px 10px 10px;
+  background: #f3f3f3;
+  border-radius: 4px;
 }

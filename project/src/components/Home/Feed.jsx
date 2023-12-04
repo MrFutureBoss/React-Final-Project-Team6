@@ -89,7 +89,6 @@ const Feed = ({ followedAuthor }) => {
 
     
 
-
     return (
         <>
             {/* <Header/> */}

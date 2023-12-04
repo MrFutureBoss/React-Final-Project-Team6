@@ -2,7 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import './Profile.css'
 import Header from "../Home/Header";
 import { Link } from "react-router-dom";
-import "bootstrap-icons/font/bootstrap-icons.css";
+
 const UserProfile = () => {
     const userName = localStorage.getItem("userName");
      const userImg = localStorage.getItem("userImg");
