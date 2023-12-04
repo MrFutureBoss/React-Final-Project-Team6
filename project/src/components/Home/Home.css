@@ -1,11 +1,7 @@
-<<<<<<< HEAD
-.header-container {
-  height: 50px;
-=======
+
 
 .header-container {
   height: 60px;
->>>>>>> 0e7a5d3 (GlobalFeed)
   text-align: center;
 }
 
@@ -83,7 +79,6 @@
 
 .footer-container {
   position: fixed;
-<<<<<<< HEAD
     bottom: 0;
     width: 100%;
     height: 70px;
@@ -95,16 +90,6 @@
     font-size: 1.5rem;
     display: block;
     padding-bottom: 0%;
-=======
-  bottom: 0;
-  width: 100%;
-  background: linear-gradient(#485563, #29323c);
-  text-align: center;
-  padding: 15px;
-  box-shadow: 0 5px 5px 5px rgba(0, 0, 0, 0.4);
-  z-index: 999;
-  font-size: 1.5rem;
-  text-decoration: none;
 }
 
 .footer-container a{
@@ -186,7 +171,6 @@ h3 {
 
 p {
   margin-bottom: 10px;
->>>>>>> 0e7a5d3 (GlobalFeed)
 }
 
 .footer-container a {

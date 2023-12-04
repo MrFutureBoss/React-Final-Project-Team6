@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { NavLink, useNavigate} from "react-router-dom";
-import axios from "axios";
+import { NavLink, useNavigate } from "react-router-dom";
+
+
 
 const Header = () => {
   const userToken = localStorage.getItem("userToken");

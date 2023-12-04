@@ -12,6 +12,7 @@ import Footer from "./components/Home/Footer";
 function App() {
   return (
     <BrowserRouter>
+    
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/settings" element={<UpdateUser/>}></Route>
@@ -22,9 +23,7 @@ function App() {
         <Route path="/:pusername/favorites" element={<UserProfile />}></Route>
         <Route path="/settings" element={<UpdateUser />}></Route>
         <Route path="/editor" element={<NewArticle />}></Route>
-        <Route path="/articleactions" element={<ArticleActions/>}></Route>
       </Routes>
-      <Footer/>
     </BrowserRouter>
   );
 }
