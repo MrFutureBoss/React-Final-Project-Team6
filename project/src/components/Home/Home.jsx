@@ -19,66 +19,96 @@ const Home = () => {
   const [followedAuthor, setFollowedAuthor] = useState(null);
   const [activeTab, setActiveTab] = useState('global');
   const [tag, setTag] = useState();
+  const [selectedTag, setSelectedTag] = useState(null); // New state for selected tag
   const [loading, setLoading] = useState(false);
+  const [tags, setTags] = useState([]);
+  const limit = 10;
+  const nav = useNavigate();
+
 
   useEffect(() => {
     const setDefaultToken = async () => {
-      axios.defaults.headers.common['Authorization'] = await `Bearer ${localStorage.getItem("userToken")}`;
+      const userToken = localStorage.getItem("userToken");
+      axios.defaults.headers.common['Authorization'] = userToken ? `Bearer ${userToken}` : null;
     }
     setDefaultToken();
   }, [localStorage.getItem("userToken")]);
-
-  const nav = useNavigate()
-
-  const limit = 10;
-
+  
+  useEffect(() => {
+    axios.get('https://api.realworld.io/api/tags')
+      .then(response => {
+        setTags(response.data.tags);
+      })
+      .catch(error => console.error('Error fetching tags:', error));
+  }, []);
+  
   useEffect(() => {
     const offset = (activePage - 1) * limit;
-
-    if (token) {
-      axios.get(`https://api.realworld.io/api/articles${activeTab === 'yourFeed' ? '/feed' : ''}?limit=${limit}&offset=${offset}${tag ? `&tag=${tag}` : ''}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+  
+    const fetchData = async () => {
+      try {
+        let apiUrl = 'https://api.realworld.io/api/articles';
+        if (token) {
+          apiUrl += activeTab === 'yourFeed' ? '/feed' : '';
         }
-      })
-        // .then(response => response.json())
-        .then(data => {
-          setArticles(data.data.articles);
-          setArticlesCount(data.data.articlesCount);
-        })
-        .catch(error => console.error('Error fetching articles:', error));
-    } else {
-      axios.get(`https://api.realworld.io/api/articles?limit=${limit}&offset=${offset}${tag ? `&tag=${tag}` : ''}`)
-        // .then(response => response.json())
-        .then(data => {
-          setArticles(data.data.articles);
-          setArticlesCount(data.data.articlesCount);
-        })
-        .catch(error => console.error('Error fetching articles:', error));
-    }
-  }, [activePage, n1Articles, activeTab, tag]);
-
+  
+        const response = await axios.get(`${apiUrl}?limit=${limit}&offset=${offset}${tag ? `&tag=${tag}` : ''}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token ? `Bearer ${token}` : null,
+          }
+        });
+  
+        setArticles(response.data.articles);
+        setArticlesCount(response.data.articlesCount);
+      } catch (error) {
+        console.error('Error fetching articles:', error);
+      }
+    };
+  
+    fetchData();
+  }, [activePage, token, activeTab, tag]);
+  
   const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber);
   }
-
+  
   const handleDetail = (slug) => {
     nav(`/article/${slug}`)
   }
-
-  const handleFilter = (e) => {
+  
+  const handleFilter = async (selectedTag) => {
     const offset = (activePage - 1) * limit;
-    const tag = e
-    axios.get(`https://api.realworld.io/api/articles?limit=${limit}&offset=${offset}&tag=${tag}`)
-      // .then(response => response.json())
-      .then(data => {
-        setArticles(data.data.articles);
-        setArticlesCount(data.data.articlesCount);
-      })
-      .catch(error => console.error('Error fetching articles:', error));
-    setTag(e);
+  
+    try {
+      const response = await axios.get(`https://api.realworld.io/api/articles?limit=${limit}&offset=${offset}&tag=${selectedTag}`);
+      setArticles(response.data.articles);
+      setArticlesCount(response.data.articlesCount);
+      setTag(selectedTag);
+      setLoading(true);
+    } catch (error) {
+      console.error('Error fetching articles:', error);
+    }
   }
+  const fetchFollowedArticles = async () => {
+    try {
+      const response = await axios.get('https://api.realworld.io/api/articles/feed', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token ? `Bearer ${token}` : null,
+        }
+      });
+
+      setArticles(response.data.articles);
+      setArticlesCount(response.data.articlesCount);
+      setFollowedAuthor(/* Set the followed author */);
+      setTag(null); // Clear the tag filter
+      setLoading(true);
+    } catch (error) {
+      console.error('Error fetching followed articles:', error);
+    }
+  }
+  
 
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -101,8 +131,6 @@ const Home = () => {
   }
 
   const totalPages = Math.ceil(articlesCount / limit);
-
-  // Dynamically generate pagination items based on totalPages
   const paginationItems = [];
   for (let number = 1; number <= totalPages; number++) {
     paginationItems.push(
@@ -147,7 +175,11 @@ const Home = () => {
   }
 
   const handleYourFeed = () => {
-    setFollowedAuthor(/* Set the followed author */);
+    if (token) {
+      fetchFollowedArticles();
+    } else {
+      nav('/login');
+    }
     setActiveTab('yourFeed');
   };
 
@@ -161,104 +193,99 @@ const Home = () => {
     <>
       <Header />
       <Banner />
-    <br /> <br />
+      <br /> <br />
       <Container>
-      <div className='pr-32 pl-32 pt-10 row'>
-        <div className='col-md-9'>
-          <div className='feed-toggle' style={{ borderBottom: '1px solid lightgray' }}>
-            <ul className='nav nav-pills feed-item'>
-              {token && <li className='nav-item'>
-                <a className={`nav-link feed-tag ${activeTab === 'yourFeed' && !tag ? 'active' : ''}`}
-                  onClick={handleYourFeed}>Your Feed</a>
-              </li>}
-              <li className='nav-item'>
-                <a className={`nav-link feed-tag ${activeTab === 'global' && !tag ? 'active' : ''}`}
-                  onClick={handleGlobalFeed}>Global Feed</a>
-              </li>
-              {tag &&
+        <div className='pr-32 pl-32 pt-10 row'>
+          <div className='col-md-9'>
+            <div className='feed-toggle' style={{ borderBottom: '1px solid lightgray' }}>
+              <ul className='nav nav-pills feed-item'>
+                {token && <li className='nav-item'>
+                  <a className={`nav-link feed-tag ${activeTab === 'yourFeed' && !tag ? 'active' : ''}`}
+                    onClick={handleYourFeed}>Your Feed</a>
+                </li>}
                 <li className='nav-item'>
-                  <a className={`nav-link feed-tag ${activeTab === 'global' ? 'active' : ''}`}># {tag}</a>
+                  <a className={`nav-link feed-tag ${activeTab === 'global' && !tag ? 'active' : ''}`}
+                    onClick={handleGlobalFeed}>Global Feed</a>
                 </li>
-              }
+                {tag &&
+                  <li className='nav-item'>
+                    <a className={`nav-link feed-tag ${activeTab === 'global' ? 'active' : ''}`}># {tag}</a>
+                  </li>
+                }
 
-            </ul>
-          </div>
+              </ul>
+            </div>
 
-          {articles.map((articles, index) => (
-            <div key={articles.slug} className='article-preview'>
-              <div className='d-flex justify-between align-items-center'>
-                <div className='article-meta d-flex align-items-center gap-3'>
-                  <a className='d-inline-block'>
-                    <img src={articles.author.image} alt='error' />
-                  </a>
-                  <div className='info'>
-                    <a className='no-underline hover:underline hover:cursor-pointer'>{articles.author.username}</a>
-                    <span className='feed-date'>{formatDate(articles.updatedAt)}</span>
+            {articles.map((articles, index) => (
+              <div key={articles.slug} className='article-preview'>
+                <div className='d-flex justify-between align-items-center'>
+                  <div className='article-meta d-flex align-items-center gap-3'>
+                    <a className='d-inline-block'>
+                      <img src={articles.author.image} alt='error' />
+                    </a>
+                    <div className='info'>
+                      <a className='no-underline hover:underline hover:cursor-pointer'>{articles.author.username}</a>
+                      <span className='feed-date'>{formatDate(articles.updatedAt)}</span>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => handleFavorite(articles.slug)}
+                    className={`btn btn-sm btn-outline-succes btn-heart ${articles.favorited ? 'bg-success text-white' : ''}`}
+                    style={{ borderColor: '#5CB85C' }}
+                  >
+                    <i className={`fa fa-heart ${articles.favorited ? 'text-white' : ''}`}></i>
+                    <span className='ml-1' style={{ fontWeight: '400' }}>{articles.favoritesCount}</span>
+                  </button>
+                </div>
+
+                <div className='d-block' onClick={() => handleDetail(articles.slug)}>
+                  <h1 className='article-title'>{articles.title}</h1>
+                  <p className='article-description'>{articles.description}</p>
+                  <div className='d-flex align-items-center justify-between'>
+                    <span className='article-read-more hover:cursor-pointer'>Read more ...</span>
+                    <ul className='tag-list'>
+                      {articles.tagList.map(tag => (
+                        <li key={tag} className='tag-item hover:cursor-pointer'>{tag}</li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
 
-                <button
-                  onClick={() => handleFavorite(articles.slug)}
-                  className={`btn btn-sm btn-outline-succes btn-heart ${articles.favorited ? 'bg-success text-white' : ''}`}
-                  style={{ borderColor: '#5CB85C' }}
-                >
-                  <i className={`fa fa-heart ${articles.favorited ? 'text-white' : ''}`}></i>
-                  <span className='ml-1' style={{ fontWeight: '400' }}>{articles.favoritesCount}</span>
-                </button>
               </div>
+            ))}
 
-              <div className='d-block' onClick={() => handleDetail(articles.slug)}>
-                <h1 className='article-title'>{articles.title}</h1>
-                <p className='article-description'>{articles.description}</p>
-                <div className='d-flex align-items-center justify-between'>
-                  <span className='article-read-more hover:cursor-pointer'>Read more ...</span>
-                  <ul className='tag-list'>
-                    {articles.tagList.map(tag => (
-                      <li key={tag} className='tag-item hover:cursor-pointer'>{tag}</li>
-                    ))}
-                  </ul>
-                </div>
+            {/* {activeTab === 'yourFeed' ? <YourFeed  followedAuthor={'https://api.realworld.io/api/articles/feed'}/> : <YourFeed  followedAuthor={'https://api.realworld.io/api/articles'}/>} */}
+
+
+          </div>
+
+          <div className='col-md-3'>
+            <div className='sidebar'>
+              <p>Popular Tags</p>
+
+              <div className='popular-tags'>
+                {tags.map(tag => (
+                  <a key={tag} className='popular-tags-item' onClick={() => handleFilter(tag)}>
+                    {tag}
+                  </a>
+                ))}
               </div>
-
-            </div>
-          ))}
-
-          {/* {activeTab === 'yourFeed' ? <YourFeed  followedAuthor={'https://api.realworld.io/api/articles/feed'}/> : <YourFeed  followedAuthor={'https://api.realworld.io/api/articles'}/>} */}
-
-
-        </div>
-
-        <div className='col-md-3'>
-          <div className='sidebar'>
-            <p>Popular Tags</p>
-
-            <div className='popular-tags'>
-              <a className='popular-tags-item' onClick={(e) => handleFilter("welcome")} >welcome</a>
-              <a className='popular-tags-item' onClick={(e) => handleFilter("implementations")} >implementations</a>
-              <a className='popular-tags-item' onClick={(e) => handleFilter("introduction")} >introduction</a>
-              <a className='popular-tags-item' onClick={(e) => handleFilter("codebaseShow")} >codebaseShow</a>
-              <a className='popular-tags-item' onClick={(e) => handleFilter("ipsum")} >ipsum</a>
-              <a className='popular-tags-item' onClick={(e) => handleFilter("qui")} >qui</a>
-              <a className='popular-tags-item' onClick={(e) => handleFilter("et")} >et</a>
-              <a className='popular-tags-item' onClick={(e) => handleFilter("cupiditate")} >cupiditate</a>
-              <a className='popular-tags-item' onClick={(e) => handleFilter("quia")} >quia</a>
-              <a className='popular-tags-item' onClick={(e) => handleFilter("deserunt")} >deserunt</a>
             </div>
           </div>
         </div>
-      </div>
-      <Pagination
-        className='mr-32 ml-32 pagination'
-        currentPage={activePage}
-        totalPages={totalPages}
-        handlePageChange={handlePageChange}
-      >
-        {paginationItems}
-      </Pagination>
+        <Pagination
+          className='mr-32 ml-32 pagination'
+          currentPage={activePage}
+          totalPages={totalPages}
+          handlePageChange={handlePageChange}
+        >
+          {paginationItems}
+        </Pagination>
 
       </Container>
-      
-      
+
+
       <Footer />
     </>
   );
