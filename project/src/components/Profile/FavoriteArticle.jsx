@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function FavoriteArticle() {
@@ -10,14 +10,15 @@ export default function FavoriteArticle() {
   const [articles, setArticles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 5;
-
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
         let config = {
           method: "get",
           maxBodyLength: Infinity,
-          url: `https://api.realworld.io/api/articles?author=${url}&favorited=${url}`,
+          url: `https://api.realworld.io/api/articles?favorited=${url}`,
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
@@ -27,6 +28,8 @@ export default function FavoriteArticle() {
         setArticles(response.data.articles);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false); // Set loading to false when fetching is complete (success or error)
       }
     };
     fetchData();
@@ -40,7 +43,7 @@ export default function FavoriteArticle() {
   );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
+  
   const handleFavorited = async (slug, favorited) => {
     try {
       const config = {
@@ -87,48 +90,92 @@ export default function FavoriteArticle() {
     }
   };
 
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    const formattedDate = new Date(dateString).toLocaleDateString(
+      "en-US",
+      options
+    );
+    return formattedDate;
+  };
+
+    const handleDetailArticles = (slug) => {
+      navigate(`/article/${slug}`);
+    };
+
+
   return (
     <>
-      <Container fluid style={{ marginBottom: "80px" }}>
-        {currentArticles.length > 0 &&
-          currentArticles.map((data, index) => (
-            <div key={index} className="myarticle-list">
-              <div className="myarticle-line1 d-flex">
-                <div className="d-flex">
-                  <img src={data.author.image} alt={url} />
-                  <div className="content">
-                    <p>{url}</p>
-                    <p>November</p>
+      <Container fluid style={{ marginBottom: "80px", width: "100%" }}>
+        {loading ? (
+          <p className="loading-articles">Loading articles...</p>
+        ) : (
+          <>
+            {currentArticles.length > 0 ? (
+              currentArticles.map((data, index) => (
+                <div
+                  key={index}
+                  className="myarticle-list"
+                  style={{
+                    borderBottom:
+                      index === currentArticles.length - 1
+                        ? ""
+                        : "1px solid #aaaaaa",
+                  }}
+                >
+                  <div className="myarticle-line1 d-flex">
+                    <div className="d-flex">
+                      <img src={data.author.image} alt={url} />
+                      <div className="content">
+                        <p>{data.author.username}</p>
+                        <p>{formatDate(data.createdAt)}</p>
+                      </div>
+                    </div>
+                    <button
+                      className="favorite"
+                      onClick={() => handleFavorited(data.slug, data.favorited)}
+                    >
+                      <i className="bi bi-heart-fill">
+                        &nbsp;{data.favoritesCount}
+                      </i>
+                    </button>
+                  </div>
+                  <div
+                    className="myarticle-line2"
+                    onClick={() => handleDetailArticles(data.slug)}
+                  >
+                    <h1>{data.title}</h1>
+                  </div>
+                  <div
+                    className="myarticle-line3"
+                    onClick={() => handleDetailArticles(data.slug)}
+                  >
+                    <p>{data.description}</p>
+                  </div>
+                  <div
+                    className="myarticle-line4 d-flex justify-content-between"
+                    onClick={() => handleDetailArticles(data.slug)}
+                  >
+                    <p>Read more...</p>
+
+                    <div
+                      className="taglist"
+                      onClick={() => handleDetailArticles(data.slug)}
+                    >
+                      {data.tagList.map((list, index) => (
+                        <div key={index}>
+                          <p>{list}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-                <button
-                  className="favorite"
-                  onClick={() => handleFavorited(data.slug, data.favorited)}
-                >
-                  <i className="bi bi-heart-fill">
-                    &nbsp;{data.favoritesCount}
-                  </i>
-                </button>
-              </div>
-              <div className="myarticle-line2">
-                <h1>{data.title}</h1>
-              </div>
-              <div className="myarticle-line3">
-                <p>{data.description}</p>
-              </div>
-              <div className="myarticle-line4 d-flex justify-content-between">
-                <p>Read more...</p>
-                <div className="taglist">
-                  {data.tagList.map((list, index) => (
-                    <div key={index}>
-                      <p>{list}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-
+              ))
+            ) : (
+              <p className="no-articles">No articles are here... yet.</p>
+            )}
+          </>
+        )}
         <div className="pagination">
           {[...Array(Math.ceil(articles.length / articlesPerPage)).keys()].map(
             (number) => (

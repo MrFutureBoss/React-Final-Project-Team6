@@ -7,6 +7,7 @@
 
 .profile-container {
   height: 250px;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 .profile img {
@@ -44,7 +45,7 @@
 }
 
 .article-container {
-  width: 60%;
+  width: 65%;
   margin: auto;
 }
 
@@ -82,9 +83,10 @@ li.active {
 }
 
 .myarticle-list{
+  width: 100%;
   padding: 24px 0;
-  cursor: pointer;
-  border-bottom: 1px solid #aaaaaa;
+  
+  /* border-bottom: 1px solid #aaaaaa; */
 }
 
 .favorite {
@@ -92,7 +94,7 @@ li.active {
   border: 1px solid #5cb85c;
   justify-content: space-between;
   height: 30px;
-  width: 45px;
+  width: auto;
   padding: 4px 8px;
   font-size: 14px;
   border-radius: 3px;
@@ -111,35 +113,38 @@ li.active {
   width: 100%;
   justify-content: space-between;
   margin-bottom: 16px;
+  
 }
 .myarticle-line1 img {
   border-radius: 50%;
   height: 100%;
   width: 32px;
   margin-right: 10px;
+  cursor: pointer;
 }
 .myarticle-line1 .content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   height: 100%;
-  width: 100px;
+  width: 250px;
   line-height: 1rem;
 }
 .myarticle-line1 .content p:nth-child(1) {
   height: 50%;
-  width: 100px;
+  width: fit-content;
   margin: auto 0;
   font-size: 16px;
   color: #5cb85c;
   padding: auto 0;
+  cursor: pointer;
 }
 .myarticle-line1 .content p:nth-child(1):hover {
  text-decoration: underline;
 }
 .myarticle-line1 .content p:nth-child(2) {
   height: 50%;
-  width: 100px;
+  width: fit-content;
   margin: auto 0;
   font-size: 12.5px;
   color: #999999;
@@ -148,16 +153,24 @@ li.active {
 .myarticle-line2 h1{
  font-size: 1.5rem;
  margin-bottom: 0;
-
+ cursor: pointer;
 }
 .myarticle-line3 p{
    color: #999999;
    font-weight: lighter;
+   cursor: pointer;
 }
 .myarticle-line4 p{
    color: #b1aeae;
    font-weight: lighter;
    font-size: 0.8rem;
+   cursor: pointer;
+}
+
+.myarticle-line4 .taglist {
+   display: flex;
+   gap: 0.25rem;
+   cursor: pointer;
 }
 
 .myarticle-line4 .taglist p{
@@ -166,6 +179,7 @@ li.active {
    padding: 0 5px;
    border-radius: 30px;
 }
+
 .pagination {
   border-radius: 5px;
 }
@@ -186,4 +200,9 @@ li.active {
 .pagination .active:hover{
   text-decoration: underline;
 }
-
+.loading-articles{
+  margin-top: 30px;
+}
+.no-articles{
+  margin-top: 30px;
+}

@@ -1,7 +1,7 @@
 import { Col, Container, Form, Row } from "react-bootstrap";
 import Header from "../Home/Header";
-import "./Article.css";
-import {  useState } from "react";
+import "./NewArticle.css";
+import { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,7 +20,7 @@ const NewArticle = () => {
       description: description,
       body: body,
       tagList: [taglist],
-    },
+    },  
   });
 
   // useEffect(() => {
@@ -40,7 +40,7 @@ const NewArticle = () => {
   //       console.log(error); // Handle other errors
   //     }
   //   };
- 
+  //   fetchData()
   // }, [userToken]);
 
 const handleSubmit = async (e) => {
@@ -76,7 +76,11 @@ const handleSubmit = async (e) => {
   }
 };
 
-
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      setTagList(e);
+    }
+  };
 
   return (
     <>

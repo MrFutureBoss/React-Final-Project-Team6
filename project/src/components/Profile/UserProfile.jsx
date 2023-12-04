@@ -68,33 +68,40 @@ const UserProfile = () => {
           </Row>
         </Row>
       </Container>
-      <div className="article-container">
+      <Container className="article-container">
         <Row className="profile-bar">
-          <ul className="bar-content" style={{ padding: "0" }}>
-            <li className={toggle ? "active" : ""}>
-              <Link
-                to={`/${pusername}`}
-                onClick={() => setToggle(!toggle)}
-                className={toggle ? "active" : ""}
-              >
-                My Articles
-              </Link>
-            </li>
-            <li className={!toggle ? "active" : ""}>
-              <Link
-                to={`/${pusername}/favorites`}
-                onClick={() => setToggle(!toggle)}
-                className={!toggle ? "active" : ""}
-              >
-                Favorited Articles
-              </Link>
-            </li>
-          </ul>
+          <Col xs={12} md={10}>
+            <ul className="bar-content" style={{ padding: "0" }}>
+              <li className={toggle ? "active" : ""}>
+                <Link
+                  to={`/${pusername}`}
+                  onClick={() => setToggle(!toggle)}
+                  className={toggle ? "active" : ""}
+                >
+                  My Articles
+                </Link>
+              </li>
+              <li className={!toggle ? "active" : ""}>
+                <Link
+                  to={`/${pusername}/favorites`}
+                  onClick={() => setToggle(!toggle)}
+                  className={!toggle ? "active" : ""}
+                >
+                  Favorited Articles
+                </Link>
+              </li>
+            </ul>
+          </Col>
         </Row>
-        {toggle ? <MyArticle /> : <FavoriteArticle />}
-      </div>
+        <Row style={{width:'100%'}}>
+          <Col xs={12}>
+            {toggle ? <MyArticle /> : <FavoriteArticle />}
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 };
 
 export default UserProfile;
+

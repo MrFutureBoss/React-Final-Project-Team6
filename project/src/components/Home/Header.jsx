@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { NavLink, useNavigate} from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 
 const Header = () => {
   const userToken = localStorage.getItem("userToken");
@@ -46,11 +46,13 @@ const Header = () => {
   return (
     <Container fluid className="header-container">
       <Row className="header-position">
-        <Col xs={5} lg={5} className="d-flex logo" onClick={handleClickLogo}>
-          conduit
+        <Col xs={4} lg={5} className="d-flex logo">
+          <p style={{ cursor: "pointer",margin:'0px 0px 0px' }} onClick={handleClickLogo}>
+            conduit
+          </p>
         </Col>
-        <Col xs={1} lg={2}></Col>
-        <Col xs={6} lg={5} className="nav-position">
+        <Col xs={1} lg={2} style={{display:'none'}}></Col>
+        <Col xs={7} lg={5} className="nav-position">
           <NavLink to="/">Home</NavLink>
           {userToken == null ? (
             <>

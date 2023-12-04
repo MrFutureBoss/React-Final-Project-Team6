@@ -68,3 +68,11 @@ textarea:focus{
 button:hover{
   background-color: rgb(41, 128, 41);
 }
+.newarticle-taglist{
+  border-style: none;
+  border-radius: 10rem;
+  background-color: #818a91;
+  color: #fff;
+      font-size: 0.8rem;
+      font-weight: 500;
+}
