@@ -9,6 +9,8 @@ import axios from "axios";
 import MyArticle from "./MyArticle";
 import FavoriteArticle from "./FavoriteArticle";
 
+import { Link } from "react-router-dom";
+
 const UserProfile = () => {
   const { pusername } = useParams();
   const [toggle, setToggle] = useState(true)

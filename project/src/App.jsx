@@ -24,6 +24,7 @@ function App() {
         <Route path="/settings" element={<UpdateUser />}></Route>
         <Route path="/editor" element={<NewArticle />}></Route>
       </Routes>
+    <Footer/>
     </BrowserRouter>
   );
 }
