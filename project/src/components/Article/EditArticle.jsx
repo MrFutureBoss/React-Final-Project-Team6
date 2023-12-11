@@ -41,16 +41,15 @@ export default function EditArticle() {
     fetchData();
   }, [pslug, userToken]);
 
-
   const handleSubmit = async (e) => {
-      let data = JSON.stringify({
-        article: {
-          title: title,
-          description: description,
-          body: body,
-          tagList: taglist,
-        },
-      });
+    let data = JSON.stringify({
+      article: {
+        title: title,
+        description: description,
+        body: body,
+        tagList: taglist,
+      },
+    });
     e.preventDefault();
 
     try {
@@ -80,13 +79,23 @@ export default function EditArticle() {
     }
   };
 
-
   const handleKeyDown = (e) => {
-    if (e.keyCode === 13) {
-       setTagList(e)
+    if (e.key === "Enter") {
+      e.preventDefault();
+      // Create a copy of the taglist array and add the new tag
+      const updatedTagList = [...taglist, e.target.value.trim()];
+
+      // Set the updated taglist and clear the input
+      setTagList(updatedTagList);
+      e.target.value = "";
     }
   };
 
+  const handleDelete = (index) => {
+    const updatedTagList = [...taglist];
+    updatedTagList.splice(index, 1);
+    setTagList(updatedTagList);
+  };
   return (
     <>
       <Header />
@@ -122,14 +131,18 @@ export default function EditArticle() {
                 <Form.Control
                   placeholder="Enter tags"
                   className="third-input"
-                  onChange={(e) => setTagList(e.target.value)}
+                  onKeyDown={handleKeyDown}
                 ></Form.Control>
                 <div className="d-flex">
                   {Array.isArray(taglist) &&
                     taglist.map((list, index) => (
-                      <div key={index} className="d-flex newarticle-taglist">
+                      <div
+                        key={index}
+                        style={{ marginRight: "5px" }}
+                        className="d-flex newarticle-taglist"
+                      >
+                        <p onClick={() => handleDelete(index)}>X</p>
                         <p>{list}</p>
-                        <p>X</p>
                       </div>
                     ))}
                 </div>

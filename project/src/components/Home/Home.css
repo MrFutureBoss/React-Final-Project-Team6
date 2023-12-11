@@ -1,10 +1,12 @@
 .header-container {
-  height: 50px;
+  height: fit-content;
+  padding: 5px 0px;
   text-align: center;
 }
 
 .header-position {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   height: 100%;
@@ -38,6 +40,7 @@
 .nav-position a {
   text-decoration: none;
   color: #b0aaaa;
+  font-size: 1rem;
 }
 
 .nav-position a.active {
@@ -76,9 +79,9 @@
 }
 
 .footer-container {
-  position: fixed;
+    position: fixed;
     bottom: 0;
-    width: 100%;
+    width: auto;
     height: 70px;
     background: linear-gradient(#485563, #29323c);
     text-align: center;
@@ -129,4 +132,64 @@
 .tag-default:hover {
   text-decoration: underline;
   background-color: #73787c;
+}
+
+
+/* Header styles */
+.menu{
+  display: none !important;
+}
+
+.desktop-menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+.desktop-menu a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+}
+
+/* Mobile menu styles */
+.mobile-menu-btn {
+  cursor: pointer;
+  color: #000;
+  font-size: 20px;
+}
+
+.mobile-menu {
+  display: flex;
+  float: right;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #333;
+  width: 50% !important;
+  height: 100vh !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-menu a {
+  float: right;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+}
+
+@media only screen and (max-width: 426px) {
+  .header-position{
+    display: none !important;
+  }
+  .menu{
+    display: flex !important;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
 }

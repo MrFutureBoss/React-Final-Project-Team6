@@ -1,0 +1,52 @@
+.page-item.active .page-link,
+.page-item.active .page-link:focus,
+.page-item.active .page-link:hover {
+  z-index: 2;
+  color: #fff;
+  cursor: default;
+  background-color: #5CB85C;
+  border-color: #5CB85C;
+}
+
+.page-item:first-child .page-link {
+  margin-left: 0;
+  border-bottom-left-radius: 0.25rem;
+  border-top-left-radius: 0.25rem;
+}
+
+.page-link {
+  position: relative;
+  float: left;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  color: #5CB85C;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+.tag-button {
+    color: #fff !important;
+    font-size: 0.8rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    white-space: nowrap;
+    margin-right: 3px;
+    margin-bottom: 0.2rem;
+    display: inline-block;
+  }
+  
+  .square-box {
+    padding: 5px 10px 10px 10px;
+    background: #f3f3f3;
+    border-radius: 4px;
+  }
+    
+  .tag-default {
+    background-color: #818a91;
+  }
+  
+  .tag-pill {
+    padding-right: 0.6em;
+    padding-left: 0.6em;
+    border-radius: 10rem;
+  }

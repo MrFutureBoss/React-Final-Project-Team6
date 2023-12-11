@@ -93,7 +93,7 @@ const UpdateUser = () => {
     <>
       <Header />
       <div className="container d-flex align-items-center justify-content-center" style={{marginBottom:"80px"}}>
-        <div className="p-4" style={{ width: "60%" }}>
+        <div className="p-4" style={{ width: "80%" }}>
           <h2 className="mb-2 text-center">Your Settings</h2>
           <Formik
             initialValues={initialValues}

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../Home/Header";
 import "./ArticleDetail.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,6 +17,7 @@ const ArticleDetail = () => {
   const [body, setBody] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const signup = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,9 +26,7 @@ const ArticleDetail = () => {
           method: "get",
           maxBodyLength: Infinity,
           url: `https://api.realworld.io/api/articles/${pslug}`,
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
+          headers: {},
         };
 
         const response = await axios.request(config);
@@ -183,10 +182,10 @@ const ArticleDetail = () => {
       },
     });
 
-     if (body.length === 0) {
-       toast.error("Comment is empty");
-       return; // Không thực hiện thêm comment
-     }
+    if (body.length === 0) {
+      toast.error("Comment is empty");
+      return; // Không thực hiện thêm comment
+    }
 
     e.preventDefault();
     try {
@@ -205,7 +204,10 @@ const ArticleDetail = () => {
 
       if (response.status >= 200 && response.status < 300) {
         toast.success("Post Successful!");
-        setComments((updateComments) => [...updateComments, response.data.comment]);
+        setComments((updateComments) => [
+          ...updateComments,
+          response.data.comment,
+        ]);
         setBody("");
       } else {
         toast.error("Post Fail!");
@@ -243,6 +245,11 @@ const ArticleDetail = () => {
       toast.error("Failed Notification!");
     }
   };
+
+  const handleSignUp = () => {
+      signup('/register')
+  }
+
   return (
     <>
       <Header />
@@ -272,9 +279,19 @@ const ArticleDetail = () => {
                 </Row>
                 <Row>
                   <Col xs={12} className="d-flex detail-line2">
-                    <img src={author.image} alt={pslug} />
+                    <Link
+                      to={`/@${author.username}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <img src={author.image} alt={pslug} />
+                    </Link>
                     <div className="content">
-                      <p>{author.username}</p>
+                      <Link
+                        to={`/@${author.username}`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <p>{author.username}</p>
+                      </Link>
                       <p>{formatDate(article.createdAt)}</p>
                     </div>
                     {userName === author.username ? (
@@ -296,8 +313,14 @@ const ArticleDetail = () => {
                         {!author.following ? (
                           <button
                             className="detail-follow"
-                            onClick={() =>
-                              handleFollowing(author.username, author.following)
+                            onClick={
+                              userToken === null
+                                ? handleSignUp
+                                : () =>
+                                    handleFollowing(
+                                      author.username,
+                                      author.following
+                                    )
                             }
                           >
                             <i className="bi bi-plus-lg"></i>&nbsp;Follow&nbsp;
@@ -366,9 +389,20 @@ const ArticleDetail = () => {
                 <Row>
                   <Col xs={12} className="m-auto">
                     <div className="d-flex justify-content-center detail-line5">
-                      <img src={author.image} alt={pslug} />
+                      <Link
+                        to={`/@${author.username}`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <img src={author.image} alt={pslug} />
+                      </Link>
+
                       <div className="content">
-                        <p>{author.username}</p>
+                        <Link
+                          to={`/@${author.username}`}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <p>{author.username}</p>
+                        </Link>
                         <p>{formatDate(article.updatedAt)}</p>
                       </div>
                       {userName === author.username ? (
@@ -389,12 +423,15 @@ const ArticleDetail = () => {
                         <>
                           {!author.following ? (
                             <button
-                              className="detail-follow"
-                              onClick={() =>
-                                handleFollowing(
-                                  author.username,
-                                  author.following
-                                )
+                              className="detail-follow2"
+                              onClick={
+                                userToken === null
+                                  ? handleSignUp
+                                  : () =>
+                                      handleFollowing(
+                                        author.username,
+                                        author.following
+                                      )
                               }
                             >
                               <i className="bi bi-plus-lg"></i>
@@ -443,64 +480,111 @@ const ArticleDetail = () => {
                     </div>
                   </Col>
                 </Row>
-                <Row>
-                  <Col
-                    lg={10}
-                    xs={12}
-                    style={{
-                      margin: "30px auto 20px auto",
-                      backgroundColor: "#F5F5F5",
-                      padding: "0",
-                    }}
-                  >
-                    <div className="detail-line6">
-                      <textarea
-                        value={body}
-                        onChange={(e) => setBody(e.target.value)}
-                        placeholder="Write a comment..."
-                      ></textarea>
-                    </div>
-                    <div className="detail-line7" style={{ margin: "auto" }}>
-                      <img src={author.image} alt={pslug} />
-                      <button
-                        className="post-comment"
-                        onClick={(e) => handlePostComment(e)}
+                {userToken === null ? (
+                  <Row>
+                    <p className="comment-unauth">
+                      <Link to="/login">Sign in</Link>&nbsp;or&nbsp;
+                      <Link to="/register">Sign up</Link>&nbsp; to add comments
+                      on this article.
+                    </p>
+                  </Row>
+                ) : (
+                  <>
+                    <Row>
+                      <Col
+                        lg={10}
+                        xs={12}
+                        style={{
+                          margin: "30px auto 20px auto",
+                          backgroundColor: "#F5F5F5",
+                          padding: "0",
+                        }}
                       >
-                        Post Comment
-                      </button>
-                    </div>
-                  </Col>
-                </Row>
-                <Row>
-                  {comments &&
-                    comments.map((comment, index) => (
-                      <Col lg={10} xs={12} key={index} className="comment-box">
-                        <Row>
-                          <Col xs={12} className="detail-line8">
-                            {comment.body}
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col xs={12} className="detail-line9">
-                            <div className="d-flex gap-1 right-content">
-                              <img
-                                src={comment.author.image}
-                                alt={comment.author.username}
-                              />
-                              <p className="comment-username">
-                                {comment.author.username}
-                              </p>
-                              <p>{formatDate(article.createdAt)}</p>
-                            </div>
-                            <i
-                              className="bi bi-trash3-fill"
-                              onClick={() => handleDeleteComment(comment.id)}
-                            ></i>
-                          </Col>
-                        </Row>
+                        <div className="detail-line6">
+                          <textarea
+                            value={body}
+                            onChange={(e) => setBody(e.target.value)}
+                            placeholder="Write a comment..."
+                          ></textarea>
+                        </div>
+                        <div
+                          className="detail-line7"
+                          style={{ margin: "auto" }}
+                        >
+                          <Link
+                            to={`/@${author.username}`}
+                            style={{ textDecoration: "none" }}
+                          >
+                            <img src={author.image} alt={pslug} />
+                          </Link>
+                          <button
+                            className="post-comment"
+                            onClick={(e) => handlePostComment(e)}
+                          >
+                            Post Comment
+                          </button>
+                        </div>
                       </Col>
-                    ))}
-                </Row>
+                    </Row>
+                    <Row>
+                      {comments &&
+                        comments.map((comment, index) => (
+                          <Col
+                            lg={10}
+                            xs={12}
+                            key={index}
+                            className="comment-box"
+                          >
+                            <Row>
+                              <Col xs={12} className="detail-line8">
+                                {comment.body}
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col xs={12} className="detail-line9">
+                                <div className="d-flex gap-1 right-content">
+                                  <img
+                                    src={comment.author.image}
+                                    alt={comment.author.username}
+                                    style={{
+                                      marginBottom: "0px",
+                                      height: "100%",
+                                    }}
+                                  />
+                                  <p
+                                    className="comment-username"
+                                    style={{
+                                      marginBottom: "0px",
+                                      height: "100%",
+                                    }}
+                                  >
+                                    <Link
+                                      to={`/@${comment.author.username}`}
+                                      style={{
+                                        textDecoration: "none",
+                                        height: "100%",
+                                        color: "#5cb85c",
+                                      }}
+                                    >
+                                      {comment.author.username}
+                                    </Link>
+                                  </p>
+
+                                  <p>{formatDate(article.createdAt)}</p>
+                                </div>
+                                <i
+                                  className="bi bi-trash3-fill"
+                                  onClick={() =>
+                                    handleDeleteComment(comment.id)
+                                  }
+                                ></i>
+                              </Col>
+                            </Row>
+                          </Col>
+                        ))}
+                    </Row>
+                  </>
+                )}
               </Col>
             </Row>
           </Container>

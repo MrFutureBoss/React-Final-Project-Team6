@@ -7,6 +7,7 @@
   line-height: 1.1;
   font-size: 45px;
   margin-bottom: 30px;
+  word-break: break-all;
 }
 .detail-line2 {
   height: 32px;
@@ -48,6 +49,7 @@
   font-weight: lighter;
 }
 .detail-edit {
+  height: fit-content;
   cursor: pointer;
   border: 1px solid #ccc;
   border-radius: 0.2rem;
@@ -61,6 +63,7 @@
   color: #fff;
 }
 .detail-delete {
+  height: fit-content;
   cursor: pointer;
   border: 1px solid #b85c5c;
   border-radius: 0.2rem;
@@ -209,6 +212,7 @@
   color: #ccc;
   background-color: #333;
   margin-right: 3px;
+  height: fit-content;
 }
 .detail-follow:hover {
   background-color: #ccc;
@@ -221,6 +225,7 @@
   font-size: 0.875rem;
   color: #5cb85c;
   background-color: #333;
+  height: fit-content;
 }
 .detail-favorite:hover {
   background-color: #5cb85c;
@@ -235,6 +240,7 @@
   color: #ccc;
   background-color: #fff;
   margin-right: 3px;
+  height: fit-content;
 }
 .detail-follow2:hover {
   background-color: #ccc;
@@ -247,6 +253,7 @@
   font-size: 0.875rem;
   color: #5cb85c;
   background-color: #fff;
+  height: fit-content;
 }
 .detail-favorite2:hover {
   background-color: #5cb85c;
@@ -259,24 +266,28 @@
   font-size: 0.875rem;
   background-color: #5cb85c;
   color: #e9e6e6;
+  height: fit-content;
 }
 .detail-unfavorite:hover {
   color: #fff;
   background-color: #5cb85c;
 }
 .detail-unfavorite2 {
+  height: fit-content;
   cursor: pointer;
   border: 1px solid #5cb85c;
   border-radius: 0.2rem;
   font-size: 0.875rem;
   background-color: #5cb85c;
   color: #e9e6e6;
+  
 }
 .detail-unfavorite2:hover {
   color: #fff;
 }
 
 .detail-unfollow {
+  height: fit-content;
   cursor: pointer;
   border-style: none;
   border-radius: 0.2rem;
@@ -368,4 +379,17 @@ padding: 1.25rem;
 }
 .detail-line9 :nth-child(2):hover {
   color: #000;
+}
+.comment-unauth{
+   display: flex;
+   justify-content: center;
+}
+.comment-unauth a{
+   text-decoration: none;
+   color: #5cb85c;
+   cursor: pointer;
+}
+
+.comment-unauth a:hover{
+  text-decoration: underline;
 }

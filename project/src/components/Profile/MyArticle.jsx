@@ -1,29 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const MyArticle = () => {
   const { pusername } = useParams();
-  const url = pusername.slice(1);
+  const url = pusername.charAt(0) === "@" ? pusername.slice(1) : pusername;
   const userToken = localStorage.getItem("userToken");
   const userName = localStorage.getItem("userName");
   const [articles, setArticles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 5;
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
         let config = {
           method: "get",
           maxBodyLength: Infinity,
-          url: `https://api.realworld.io/api/articles?author=${url}`,
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
+          url:
+            url === userName
+              ? `https://api.realworld.io/api/articles?author=${url}`
+              : `https://api.realworld.io/api/articles?author=${url}&limit=20`,
         };
+        if (userToken) {
+          config.headers = {
+            Authorization: `Bearer ${userToken}`,
+          };
+        }
 
         const response = await axios.request(config);
         setArticles(response.data.articles);
@@ -34,7 +39,7 @@ const MyArticle = () => {
       }
     };
     fetchData();
-  }, [url, userToken]);
+  }, [url]);
 
   const indexOfLastArticle = currentPage * articlesPerPage;
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
@@ -100,9 +105,9 @@ const MyArticle = () => {
     return formattedDate;
   };
 
-  const handleDetailArticles = (slug)=>{
-      navigate(`/article/${slug}`);
-  }
+  const handleDetailArticles = (slug) => {
+    navigate(`/article/${slug}`);
+  };
 
   return (
     <>
@@ -111,7 +116,7 @@ const MyArticle = () => {
           <p className="loading-articles">Loading articles...</p>
         ) : (
           <>
-            {(currentArticles.length > 0 && userName === url) ? (
+            {currentArticles.length > 0 ? (
               currentArticles.map((data, index) => (
                 <div
                   key={index}
@@ -127,7 +132,9 @@ const MyArticle = () => {
                     <div className="d-flex">
                       <img src={data.author.image} alt={url} />
                       <div className="content">
-                        <p>{data.author.username}</p>
+                        <Link to={`/@${data.author.username}`} style={{textDecoration:'none'}}>
+                          <p>{data.author.username}</p>
+                        </Link>
                         <p>{formatDate(data.createdAt)}</p>
                       </div>
                     </div>

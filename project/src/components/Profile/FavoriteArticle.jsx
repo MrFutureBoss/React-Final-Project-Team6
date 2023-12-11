@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function FavoriteArticle() {
   const { pusername } = useParams();
-  const url = pusername.slice(1);
+  const url = pusername.charAt(0) === "@" ? pusername.slice(1) : pusername;
   const userToken = localStorage.getItem("userToken");
   const [articles, setArticles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -127,7 +127,12 @@ export default function FavoriteArticle() {
                     <div className="d-flex">
                       <img src={data.author.image} alt={url} />
                       <div className="content">
-                        <p>{data.author.username}</p>
+                        <Link
+                          to={`/@${data.author.username}`}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <p>{data.author.username}</p>
+                        </Link>
                         <p>{formatDate(data.createdAt)}</p>
                       </div>
                     </div>

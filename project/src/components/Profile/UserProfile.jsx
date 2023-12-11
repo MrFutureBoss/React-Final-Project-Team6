@@ -1,21 +1,24 @@
 import { Col, Container, Row } from "react-bootstrap";
 import "./Profile.css";
 import Header from "../Home/Header";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 import MyArticle from "./MyArticle";
 import FavoriteArticle from "./FavoriteArticle";
 
 const UserProfile = () => {
   const { pusername } = useParams();
-  const [toggle, setToggle] = useState(true)
-  const [data,setData] = useState([])
-  const url = pusername.slice(1);
-  console.log(url)
-  
+  const [toggle, setToggle] = useState(true);
+  const [data, setData] = useState([]);
+  const url = pusername.charAt(0) === "@" ? pusername.slice(1) : pusername;
+  const navigate = useNavigate();
+  const signup = useNavigate();
+  const userToken = localStorage.getItem("userToken");
+  const userName = localStorage.getItem("userName");
+  console.log(url);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,22 +26,61 @@ const UserProfile = () => {
           method: "get",
           maxBodyLength: Infinity,
           url: `https://api.realworld.io/api/profiles/${url}`,
-          // headers:{
-          //   Authorization: `Bearer ${userToken}`,
-          // }
         };
 
         const response = await axios.request(config);
-        console.log(response)
-        setData(response.data.profile)
+        console.log(response);
+        setData(response.data.profile);
       } catch (error) {
-          console.log(error); 
-        
+        console.log(error);
+        if (error.response && error.response.status === 404) {
+          navigate("/");
+        }
       }
     };
     fetchData();
   }, [url]);
 
+  //Follow or unfollow
+  const handleFollowing = async (username, following) => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      };
+
+      let response;
+
+      if (!following) {
+        // If the article is not follow, send a POST request to favorite it
+        response = await axios.post(
+          `https://api.realworld.io/api/profiles/${username}/follow`,
+          null,
+          config
+        );
+        console.log(response);
+      } else {
+        // If the article is follow send a DELETE request to remove it from favorites
+        response = await axios.delete(
+          `https://api.realworld.io/api/profiles/${username}/follow`,
+          config
+        );
+      }
+
+      // Use the functional form of setArticle to ensure you're working with the latest state
+      setData((prevState) => ({
+        ...prevState,
+        following: !following,
+      }));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSignUp = () => {
+    signup("/register");
+  };
 
   return (
     <>
@@ -61,9 +103,38 @@ const UserProfile = () => {
           </Row>
           <Row className="profile-btn">
             <Col xs={12}>
-              <Link to="/settings" className="">
-                <i className="bi bi-gear-fill"></i> Edit Profile Settings
-              </Link>
+              {url === userName ? (
+                <Link to="/settings" className="">
+                  <i className="bi bi-gear-fill"></i> Edit Profile Settings
+                </Link>
+              ) : (
+                <>
+                  {!data.following ? (
+                    <button
+                      className="profile-follow"
+                      onClick={
+                        userToken === null
+                          ? handleSignUp
+                          : () => handleFollowing(data.username, data.following)
+                      }
+                    >
+                      <i className="bi bi-plus-lg"></i>&nbsp;Follow&nbsp;
+                      {data.username}
+                    </button>
+                  ) : (
+                    <button
+                      className="profile-unfollow"
+                      onClick={() =>
+                        handleFollowing(data.username, data.following)
+                      }
+                    >
+                      <i className="bi bi-plus-lg"></i>
+                      &nbsp;Unfollow&nbsp;
+                      {data.username}
+                    </button>
+                  )}
+                </>
+              )}
             </Col>
           </Row>
         </Row>
@@ -93,15 +164,13 @@ const UserProfile = () => {
             </ul>
           </Col>
         </Row>
-        <Row style={{width:'100%'}}>
-          <Col xs={12}>
-            {toggle ? <MyArticle /> : <FavoriteArticle />}
-          </Col>
+        <Row style={{ width: "100%" }}>
+          <Col xs={12}>{toggle ? <MyArticle /> : <FavoriteArticle />}</Col>
         </Row>
       </Container>
     </>
   );
 };
-
+// {userName===author.username ? (edit) : {!author.following ? (follow) : (unfollow)}}
+//{userName===author.username ? (<FavoritedArticle/>) : (<p>No article</p>)}
 export default UserProfile;
-

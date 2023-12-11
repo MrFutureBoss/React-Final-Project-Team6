@@ -87,7 +87,7 @@ const handleSubmit = async (e) => {
       <Header />
       <Container fluid>
         <Row>
-          <Col className="offset-2 col-md-8">
+          <Col className="offset-2 col-md-8 col-sm-10" style={{margin:'auto'}}>
             <Form onSubmit={(e) => handleSubmit(e)}>
               <Form.Group className="col-md-12">
                 <Form.Control

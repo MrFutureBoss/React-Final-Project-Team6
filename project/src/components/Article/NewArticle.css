@@ -29,7 +29,7 @@
   color: rgb(193, 189, 189);
 }
 textarea {
-    width: 100%;
+  width: 100%;
   padding: 8px;
   height: 180px;
   border: 1px solid rgb(236, 230, 230);
@@ -48,15 +48,15 @@ textarea {
   color: rgb(193, 189, 189);
 }
 
-input:focus{
+input:focus {
   border-color: rgb(72, 198, 226);
   outline: none;
 }
-textarea:focus{
+textarea:focus {
   border-color: rgb(72, 198, 226);
   outline: none;
 }
-.btn-publish{
+.btn-publish {
   background-color: rgb(89, 193, 89);
   color: #fff;
   border-style: none;
@@ -65,14 +65,22 @@ textarea:focus{
   padding: 10px 20px;
   float: right;
 }
-button:hover{
+button:hover {
   background-color: rgb(41, 128, 41);
 }
-.newarticle-taglist{
+.newarticle-taglist {
+  text-align: center;
   border-style: none;
   border-radius: 10rem;
   background-color: #818a91;
   color: #fff;
-      font-size: 0.8rem;
-      font-weight: 500;
+  font-size: 0.8rem;
+  font-weight: 500;
+  width: auto;
 }
+
+.newarticle-taglist p {
+  padding: 5px;
+  margin: 0;
+}
+

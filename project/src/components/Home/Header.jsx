@@ -1,6 +1,7 @@
 // import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { NavLink, useNavigate} from "react-router-dom";
+import { Link, NavLink, useNavigate} from "react-router-dom";
 // import axios from "axios";
 
 const Header = () => {
@@ -8,6 +9,12 @@ const Header = () => {
   const username = localStorage.getItem("userName");
   const img = localStorage.getItem("userImg");
   const navigate = useNavigate();
+   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+   const toggleMobileMenu = () => {
+     setMobileMenuOpen(!isMobileMenuOpen);
+   };
+
   // const [img, setImg] = useState("");
   // const [username, setUserName] = useState("");
 
@@ -45,14 +52,17 @@ const Header = () => {
 
   return (
     <Container fluid className="header-container">
-      <Row className="header-position">
-        <Col xs={4} lg={5} className="d-flex logo">
-          <p style={{ cursor: "pointer",margin:'0px 0px 0px' }} onClick={handleClickLogo}>
+      <Row className="header-position" style={{ margin: "0px" }}>
+        <Col xs={12} lg={5} sm={4} className="d-flex logo">
+          <p
+            style={{ cursor: "pointer", margin: "0px 0px 0px" }}
+            onClick={handleClickLogo}
+          >
             conduit
           </p>
         </Col>
-        <Col xs={1} lg={2} style={{display:'none'}}></Col>
-        <Col xs={7} lg={5} className="nav-position">
+        <Col xs={0} lg={2} sm={0} style={{ display: "none" }}></Col>
+        <Col xs={12} lg={5} sm={8} className="nav-position">
           <NavLink to="/">Home</NavLink>
           {userToken == null ? (
             <>
@@ -74,6 +84,38 @@ const Header = () => {
             </>
           )}
         </Col>
+      </Row>
+      <Row className="menu">
+        <Col xs={6} lg={6} sm={6} className="d-flex logo">
+          <p
+            style={{ cursor: "pointer", margin: "0px 0px 0px" }}
+            onClick={handleClickLogo}
+          >
+            conduit
+          </p>
+        </Col>
+        <Col xs={6} lg={6} sm={6} className="mobile-menu-btn" onClick={toggleMobileMenu}>
+          ☰
+        </Col>
+        {isMobileMenuOpen && (
+          <div className="mobile-menu">
+            <div onClick={toggleMobileMenu} style={{ color: "#fff",float:'left' }}>
+              X
+            </div>
+            <NavLink href="#" onClick={toggleMobileMenu}>
+              Home
+            </NavLink>
+            <NavLink href="#" onClick={toggleMobileMenu}>
+              About
+            </NavLink>
+            <NavLink href="#" onClick={toggleMobileMenu}>
+              Services
+            </NavLink>
+            <NavLink href="#" onClick={toggleMobileMenu}>
+              Contact
+            </NavLink>
+          </div>
+        )}
       </Row>
     </Container>
   );

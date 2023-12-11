@@ -119,6 +119,7 @@ nav{
     padding-left: 0.6rem;
     border-radius: 10rem;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .popular-tags-item:hover{
@@ -128,6 +129,10 @@ nav{
 .pagination{
     margin-top:1rem;
     margin-bottom: 8rem;
+}
+
+.pagination-item {
+    padding: 0;
 }
 
 .pagination-item span{
@@ -263,3 +268,5 @@ float:left;
 .bi {
     border: none;
 }
+
+
