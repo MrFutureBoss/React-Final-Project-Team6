@@ -48,7 +48,7 @@ const MyArticle = () => {
     indexOfLastArticle
   );
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = async (pageNumber) => setCurrentPage(pageNumber);
 
   const handleFavorited = async (slug, favorited) => {
     try {
@@ -132,7 +132,10 @@ const MyArticle = () => {
                     <div className="d-flex">
                       <img src={data.author.image} alt={url} />
                       <div className="content">
-                        <Link to={`/@${data.author.username}`} style={{textDecoration:'none'}}>
+                        <Link
+                          to={`/@${data.author.username}`}
+                          style={{ textDecoration: "none" }}
+                        >
                           <p>{data.author.username}</p>
                         </Link>
                         <p>{formatDate(data.createdAt)}</p>

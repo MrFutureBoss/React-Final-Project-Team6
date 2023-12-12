@@ -5,6 +5,9 @@ import axios from "axios";
 import Header from "../Home/Header";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const signInSchema = Yup.object().shape({
   email: Yup.string().required("Email is required"),
@@ -55,11 +58,13 @@ const SignIn = () => {
             email: "Invalid email",
             password: "Invalid password",
           });
+          toast.error("Login Fail!");
         } else {
           console.error("An unexpected error occurred:", error.message);
         }
       })
       .finally(() => {
+        toast.success("Login Successful!");
         setSubmitting(false);
       });
   };
@@ -124,6 +129,7 @@ const SignIn = () => {
           </Formik>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };

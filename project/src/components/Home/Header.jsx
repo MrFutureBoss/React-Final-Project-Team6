@@ -94,27 +94,47 @@ const Header = () => {
             conduit
           </p>
         </Col>
-        <Col xs={6} lg={6} sm={6} className="mobile-menu-btn" onClick={toggleMobileMenu}>
+        <Col
+          xs={6}
+          lg={6}
+          sm={6}
+          className="mobile-menu-btn"
+          onClick={toggleMobileMenu}
+          style={{ display: isMobileMenuOpen ? "none" : "block" }}
+        >
           ☰
         </Col>
         {isMobileMenuOpen && (
-          <div className="mobile-menu">
-            <div onClick={toggleMobileMenu} style={{ color: "#fff",float:'left' }}>
-              X
-            </div>
-            <NavLink href="#" onClick={toggleMobileMenu}>
-              Home
-            </NavLink>
-            <NavLink href="#" onClick={toggleMobileMenu}>
-              About
-            </NavLink>
-            <NavLink href="#" onClick={toggleMobileMenu}>
-              Services
-            </NavLink>
-            <NavLink href="#" onClick={toggleMobileMenu}>
-              Contact
-            </NavLink>
-          </div>
+          <Row>
+            <Col xs={12} className="mobile-menu">
+              <div
+                className="exit-menu"
+                onClick={toggleMobileMenu}
+                style={{ color: "#fff" }}
+              >
+                <p>X</p>
+              </div>
+              {userToken == null ? (
+                <>
+                  <NavLink to="/login">Sign in</NavLink>
+                  <NavLink to="/register">Sign up</NavLink>
+                </>
+              ) : (
+                <>
+                  <NavLink to="/editor">
+                    <i className="bi bi-pencil-square"></i> New Article
+                  </NavLink>
+                  <NavLink to="/settings">
+                    <i className="bi bi-gear-fill"></i> Settings
+                  </NavLink>
+                  <NavLink to={`/@${username}`} className="nav-profile">
+                    <img src={img} className="nav-profileimg" alt={username} />
+                    <p>{username}</p>
+                  </NavLink>
+                </>
+              )}
+            </Col>
+          </Row>
         )}
       </Row>
     </Container>

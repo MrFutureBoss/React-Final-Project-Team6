@@ -37,9 +37,9 @@ const Home = () => {
       <Header />
       <Banner />
       <br /> <br />
-      <Container style={{marginBottom:"40px"}}>
+      <Container style={{ marginBottom: "40px" }}>
         <div className="pr-32 pl-32 pt-10 row">
-          <div className="col-md-9">
+          <div className="col-md-9 order-md-1 order-sx-2">
             <div
               className="feed-toggle"
               style={{ borderBottom: "1px solid lightgray" }}
@@ -69,7 +69,13 @@ const Home = () => {
                 </li>
 
                 {tag && (
-                  <li className="nav-item" style={{ padding: "0px", display:activeTab==="tag"? "block" : "none" }}>
+                  <li
+                    className="nav-item"
+                    style={{
+                      padding: "0px",
+                      display: activeTab === "tag" ? "block" : "none",
+                    }}
+                  >
                     <Link
                       className={`nav-link feed-tag ${
                         activeTab === "tag" ? "active" : ""
@@ -92,7 +98,10 @@ const Home = () => {
             {/* 
           {activeTab === 'yourFeed' ? <Feed  followedAuthor={'https://api.realworld.io/api/articles/feed'}/> : <Feed  followedAuthor={'https://api.realworld.io/api/articles'}/>} */}
           </div>
-          <div className="col-md-3">
+          <div
+            className="col-md-3 order-md-2 order-sx-1"
+            style={{ marginBottom: "40px" }}
+          >
             <PopularTag setSelectedTag={handleDataChange} />
           </div>
         </div>

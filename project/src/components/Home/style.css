@@ -182,6 +182,7 @@ nav{
 }
 
 .nav-profile{
+    height: fit-content;
 float:left;
 }
 

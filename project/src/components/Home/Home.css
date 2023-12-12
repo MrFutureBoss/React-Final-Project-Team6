@@ -156,28 +156,52 @@
   cursor: pointer;
   color: #000;
   font-size: 20px;
+  cursor: pointer;
 }
 
 .mobile-menu {
-  display: flex;
-  float: right;
   position: fixed;
   top: 0;
   right: 0;
   background-color: #333;
-  width: 50% !important;
+  width: 30% !important;
   height: 100vh !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex !important;
+  flex-direction: column;
+  justify-content: left;
+  text-align: left;
 }
 
 .mobile-menu a {
-  float: right;
+  width: 100%;
   color: white;
   text-decoration: none;
-  padding: 10px;
+  padding: 10px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #f3f3f3;
+  
+}
+.mobile-menu a:hover{
+  background-color: #73787c;
 }
 
-@media only screen and (max-width: 426px) {
+.exit-menu {
+  width: 100%;
+  font-size: 24px;
+  display: flex !important;
+  justify-content: center;
+  text-align: center;
+}
+.exit-menu p{
+  margin-bottom:0px ;
+  cursor: pointer;
+}
+.exit-menu p:hover{
+  color: #73787c;
+}
+
+@media only screen and (max-width: 575px) {
   .header-position{
     display: none !important;
   }
